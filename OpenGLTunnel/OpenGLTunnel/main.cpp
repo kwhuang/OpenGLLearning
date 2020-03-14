@@ -152,7 +152,7 @@ void SetupRC()
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexImage2D(GL_TEXTURE_2D, 0, iComponents, iWidth, iHeight, 0, eFormat, GL_UNSIGNED_BYTE, pBytes);
         
-        __glewGenerateMipmap(GL_TEXTURE_2D);
+        glGenerateMipmap(GL_TEXTURE_2D);
         
         // 不在需要初始纹理数据
         free(pBytes);
@@ -164,7 +164,9 @@ void SetupRC()
     floorBatch.Begin(GL_TRIANGLE_STRIP, 28, 1);
     for (z = 60.0f; z >= 0.0f; z-= 10.0f)
     {
+        // 纹理坐标
         floorBatch.MultiTexCoord2f(0, 0.0f, 0.0f);
+        // 顶点坐标
         floorBatch.Vertex3f(-10.f, -10.f, z);
         
         floorBatch.MultiTexCoord2f(0, 1.0f, 0.0f);
@@ -184,13 +186,13 @@ void SetupRC()
     for (z = 60.0f; z >= 0.0f; z-= 10.0f)
     {
         ceilingBatch.MultiTexCoord2f(0, 0.0f, 1.0f);
-        ceilingBatch.Vertex3f(-10.0f, -10.0f, z - 10.f);
+        ceilingBatch.Vertex3f(-10.0f, 10.0f, z - 10.f);
         
         ceilingBatch.MultiTexCoord2f(0, 1.0f, 1.0f);
         ceilingBatch.Vertex3f(10.0f, 10.0f, z - 10.0f);
         
         ceilingBatch.MultiTexCoord2f(0, 0.0f, 0.0f);
-        ceilingBatch.Vertex3f(-10.f, -10.0f, z);
+        ceilingBatch.Vertex3f(-10.f, 10.0f, z);
         
         ceilingBatch.MultiTexCoord2f(0, 1.0f, 0.0f);
         ceilingBatch.Vertex3f(10.0f, 10.0f, z);
@@ -203,7 +205,7 @@ void SetupRC()
     for (z = 60.0f; z >= 0.0f; z-= 10.0f)
     {
         leftWallBatch.MultiTexCoord2f(0, 0.0f, 1.0f);
-        leftWallBatch.Vertex3f(10.0f, -10.0f, z );
+        leftWallBatch.Vertex3f(-10.0f, -10.0f, z );
         
         leftWallBatch.MultiTexCoord2f(0, 0.0f, 1.0f);
         leftWallBatch.Vertex3f(-10.0f, 10.0f, z );
@@ -336,10 +338,21 @@ int main(int argc,char *argv[])
     
     glutAttachMenu(GLUT_RIGHT_BUTTON);
     
+    GLenum err = glewInit();
+    if (GLEW_OK != err)
+    {
+        fprintf(stderr, "GLEW Error: %s\n",glewGetErrorString(err));
+        return 1;
+    }
+    
     // 启动，循环，关闭
     SetupRC();
     
     glutMainLoop();
+    
+    ShutdownRC();
+    
+    return 0;
     
 }
 
