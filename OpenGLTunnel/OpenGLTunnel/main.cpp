@@ -347,9 +347,7 @@ int main(int argc,char *argv[])
     
     // 启动，循环，关闭
     SetupRC();
-    
     glutMainLoop();
-    
     ShutdownRC();
     
     return 0;
