@@ -50,6 +50,9 @@ int main(int argc,char *argv[])
  首行指定版本，最低版3.3
  #version 330
  
+ // 精度
+ precision highp float;
+ 
  属性声明
  in vec4 vVertex; // 4分量顶点位置，标记为in的变量是只读的
  in vec4 vColor; // 4分量顶点颜色值
