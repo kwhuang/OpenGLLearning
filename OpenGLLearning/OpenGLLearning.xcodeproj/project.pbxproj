@@ -13,6 +13,7 @@
 		8150BC44241C665E00DD9E52 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8150BC43241C665E00DD9E52 /* GLUT.framework */; };
 		8150BC46241C668D00DD9E52 /* libGLTools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8150BC45241C668D00DD9E52 /* libGLTools.a */; };
 		8150BC48241C669E00DD9E52 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8150BC47241C669E00DD9E52 /* main.cpp */; };
+		8192B3FA242AE7B900990134 /* openglDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8192B3F9242AE7B900990134 /* openglDesc.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		8150BC43241C665E00DD9E52 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		8150BC45241C668D00DD9E52 /* libGLTools.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLTools.a; sourceTree = "<group>"; };
 		8150BC47241C669E00DD9E52 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		8192B3F9242AE7B900990134 /* openglDesc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = openglDesc.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				8150BC26241C65EB00DD9E52 /* Info.plist */,
 				8150BC29241C65EB00DD9E52 /* OpenGLLearning.entitlements */,
 				8150BC47241C669E00DD9E52 /* main.cpp */,
+				8192B3F9242AE7B900990134 /* openglDesc.cpp */,
 			);
 			path = OpenGLLearning;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8150BC48241C669E00DD9E52 /* main.cpp in Sources */,
+				8192B3FA242AE7B900990134 /* openglDesc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
