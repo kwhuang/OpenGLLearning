@@ -14,11 +14,35 @@
 #include "glfw3.h"
 #include "glfw3native.h"
 
+/*
+ 图形渲染管线：
+ 1、顶点数据
+ 2、图元（点、线、线带、三角形、三角形带）装配(GL_POINTS、GL_TRIANGLES、GL_LINE_STRIP)
+ 3、几何着色器：通过产生新顶点构造出新的（或是其它的）图元来生成其他形状；顶点着色器：把3D坐标转为另一种3D坐标，同时顶点着色器允许我们对顶点属性进行一些基本处理
+ 4、测试与混合：检测片段的对应的深度（和模板(Stencil)）值（后面会讲），用它们来判断这个像素是其它物体的前面还是后面，决定是否应该丢弃
+ 5、片段着色器：计算一个像素的最终颜色
+ 6、光栅化：图元映射为最终屏幕上相应的像素，生成供片段着色器(Fragment Shader)使用的片段(Fragment)
+ */
+
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 
 // 申明键盘输入回调
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+
+// Shaders
+const GLchar* vertexShaderSource = "#version 330 core\n"
+    "layout (location = 0) in vec3 position;\n"
+    "void main()\n"
+    "{\n"
+    "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
+    "}\0";
+const GLchar* fragmentShaderSource = "#version 330 core\n"
+    "out vec4 color;\n"
+    "void main()\n"
+    "{\n"
+    "color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    "}\n\0";
 
 int main(int argc,char *argv[])
 {
@@ -44,6 +68,8 @@ int main(int argc,char *argv[])
         return -1;
     }
     glfwMakeContextCurrent(window);
+    // 绑定键盘事件
+    glfwSetKeyCallback(window, key_callback);
     // Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
     glewExperimental = GL_TRUE;
     // Initialize GLEW to setup the OpenGL Function pointers
@@ -58,8 +84,103 @@ int main(int argc,char *argv[])
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
     
-    // 绑定键盘事件
-    glfwSetKeyCallback(window, key_callback);
+    /// 顶点着色器
+    
+    GLint success;
+    GLchar infoLog[512];
+    GLuint vertexShader;
+    // 创建顶点着色器
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    // 附加着色器源码
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    // 编译着色器
+    glCompileShader(vertexShader);
+    // 判断着色器是否变异成功
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if(!success)
+    {
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+    
+    /// 片段着色器
+
+    GLuint fragmentShader;
+    // 创建片段着色器
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    // 附加着色器源码
+    glShaderSource(fragmentShader,1,&fragmentShaderSource,NULL);
+    // 编译着色器
+    glCompileShader(fragmentShader);
+    // 判断着色器是否变异成功
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if(!success)
+    {
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+    
+    /// 着色器程序
+    
+    // 着色器程序对象
+    GLuint shaderProgram;
+    shaderProgram = glCreateProgram();
+    // 附加顶点着色器
+    glAttachShader(shaderProgram,vertexShader);
+    // 附加片段着色器
+    glAttachShader(shaderProgram,fragmentShader);
+    // 链接着色器程序
+    glLinkProgram(shaderProgram);
+    // 判断着色器对象是否链接成功
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if(!success) {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADERPROGRAM::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+    // 激活着色器对象后需要把着色器释放
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+    
+    // 顶点数组
+    GLfloat vertex[] = {
+        -0.5f,-0.5f,0.0f,
+        0.5f,-0.5f,0.0f,
+        0.0f,0.5f,0.0f
+    };
+    
+    // 顶点缓冲对象、顶点数组对象
+    GLuint VBO,VAO;
+    // 创建顶点数组对象
+    glGenVertexArrays(1, &VAO);
+    // 创建顶点缓冲对象
+    glGenBuffers(1, &VBO);
+    // 绑定点点数组对象
+    glBindVertexArray(VAO);
+    // 绑定顶点缓冲对象到GL_ARRAY_BUFFER上
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // GL_STATIC_DRAW ：数据不会或几乎不会改变。
+    // GL_DYNAMIC_DRAW：数据会被改变很多。
+    // GL_STREAM_DRAW ：数据每次绘制时都会改变。
+    // 制定绑定数据data
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
+    
+    /// 链接顶点属性
+    
+    // 参数说明
+    // 第一个参数：顶点位置（如前面顶点着色器声明的layout(location = 0)）
+    // 第二个参数：指定顶点属性的大小。顶点属性是一个vec3，它由3个值组成，所以大小是3
+    // 第三个参数：指定数据的类型，这里是GL_FLOAT
+    // 第四个参数：定义我们是否希望数据被标准化（设置为GL_TRUE，所有数据都会被映射到0（对于有符号型signed数据是-1）到1之间）
+    // 第五个参数：叫做步长(Stride)，它告诉我们在连续的顶点属性组之间的间隔
+    // 第六个参数：表示位置数据在缓冲中起始位置的偏移量(Offset)，当数组总包含顶点、纹理等多个顶点数据的时候用来区分顶点（纹理）以哪个点开始为x（s）
+    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(GLfloat) *3,(GLvoid*)0);
+    // 以顶点属性位置值作为参数，启用顶点属性
+    glEnableVertexAttribArray(0);
+    // 取消绑定VBO
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    // 取消当前绑定VAO
+    glBindVertexArray(0);
+    
 
     // 开启循环绘制
     while (!glfwWindowShouldClose(window))
@@ -67,11 +188,20 @@ int main(int argc,char *argv[])
         // 检查响应事件（鼠标、键盘输入）
         glfwPollEvents();
         
-        // 渲染事件
+        /// 渲染事件
         
         // 清空屏幕的颜色缓冲
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+        
+        // 激活着色程序
+        glUseProgram(shaderProgram);
+        // 绑定顶点数组对象
+        glBindVertexArray(VAO);
+        // 绘制三角形
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        // 接触绑定VAO
+        glBindVertexArray(0);
         
         // S交换屏幕缓冲区
         glfwSwapBuffers(window);
