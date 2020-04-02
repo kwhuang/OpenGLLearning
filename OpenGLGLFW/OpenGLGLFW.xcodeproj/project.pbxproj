@@ -11,9 +11,9 @@
 		815742A8243575CA00D8F876 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 815742A6243575CA00D8F876 /* Main.storyboard */; };
 		815742B42435762200D8F876 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742B32435762200D8F876 /* OpenGL.framework */; };
 		815742B62435763000D8F876 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815742B52435763000D8F876 /* main.cpp */; };
-		815742BF243576BF00D8F876 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742BD243576BF00D8F876 /* libglfw3.a */; };
 		815742D32435797700D8F876 /* libGLTools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742D22435797700D8F876 /* libGLTools.a */; };
 		815742D524357A6C00D8F876 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742D424357A6C00D8F876 /* libglfw.3.dylib */; };
+		815742D7243592EE00D8F876 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742D6243592EE00D8F876 /* GLUT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,6 @@
 		815742B52435763000D8F876 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		815742BA243576BF00D8F876 /* glfw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3.h; sourceTree = "<group>"; };
 		815742BB243576BF00D8F876 /* glfw3native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3native.h; sourceTree = "<group>"; };
-		815742BD243576BF00D8F876 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
 		815742C32435797700D8F876 /* GLBatchBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBatchBase.h; sourceTree = "<group>"; };
 		815742C42435797700D8F876 /* math3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math3d.h; sourceTree = "<group>"; };
 		815742C52435797700D8F876 /* GLTriangleBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTriangleBatch.h; sourceTree = "<group>"; };
@@ -43,6 +42,7 @@
 		815742D12435797700D8F876 /* GLTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTools.h; sourceTree = "<group>"; };
 		815742D22435797700D8F876 /* libGLTools.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLTools.a; sourceTree = "<group>"; };
 		815742D424357A6C00D8F876 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libglfw.3.dylib; sourceTree = "<group>"; };
+		815742D6243592EE00D8F876 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,10 +50,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				815742D7243592EE00D8F876 /* GLUT.framework in Frameworks */,
 				815742B42435762200D8F876 /* OpenGL.framework in Frameworks */,
 				815742D524357A6C00D8F876 /* libglfw.3.dylib in Frameworks */,
 				815742D32435797700D8F876 /* libGLTools.a in Frameworks */,
-				815742BF243576BF00D8F876 /* libglfw3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +94,7 @@
 		815742B22435762200D8F876 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				815742D6243592EE00D8F876 /* GLUT.framework */,
 				815742B32435762200D8F876 /* OpenGL.framework */,
 			);
 			name = Frameworks;
@@ -128,7 +129,6 @@
 		815742BC243576BF00D8F876 /* lib-macos */ = {
 			isa = PBXGroup;
 			children = (
-				815742BD243576BF00D8F876 /* libglfw3.a */,
 				815742D424357A6C00D8F876 /* libglfw.3.dylib */,
 			);
 			path = "lib-macos";
@@ -376,7 +376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = LP968L9773;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = OpenGLGLFW/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -384,9 +384,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/OpenGLGLFW/GLFW/lib-macos",
-					"$(PROJECT_DIR)/OpenGLGLFW/OpenGL",
+					"\"$(SRCROOT)/OpenGLGLFW/OpenGL/\"",
+					"\"$(SRCROOT)/OpenGLGLFW/GLFW/lib-macos/\"",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "hq-kven.OpenGLGLFW";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -400,7 +401,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = LP968L9773;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = OpenGLGLFW/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -408,9 +409,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/OpenGLGLFW/GLFW/lib-macos",
-					"$(PROJECT_DIR)/OpenGLGLFW/OpenGL",
+					"\"$(SRCROOT)/OpenGLGLFW/OpenGL/\"",
+					"\"$(SRCROOT)/OpenGLGLFW/GLFW/lib-macos/\"",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "hq-kven.OpenGLGLFW";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
