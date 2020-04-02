@@ -17,6 +17,9 @@
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 
+// 申明键盘输入回调
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+
 int main(int argc,char *argv[])
 {
     // 初始化GLFW
@@ -54,12 +57,21 @@ int main(int argc,char *argv[])
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
+    
+    // 绑定键盘事件
+    glfwSetKeyCallback(window, key_callback);
 
     // 开启循环绘制
     while (!glfwWindowShouldClose(window))
     {
         // 检查响应事件（鼠标、键盘输入）
         glfwPollEvents();
+        
+        // 渲染事件
+        
+        // 清空屏幕的颜色缓冲
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
         
         // S交换屏幕缓冲区
         glfwSwapBuffers(window);
@@ -68,4 +80,12 @@ int main(int argc,char *argv[])
     // 释放资源
     glfwTerminate();
     return 0;
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+    // 当用户按下ESC键,我们设置window窗口的WindowShouldClose属性为true
+    // 关闭应用程序
+    if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
 }
