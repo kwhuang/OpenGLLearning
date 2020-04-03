@@ -17,7 +17,7 @@
 /*
  图形渲染管线：
  1、顶点数据
- 2、图元（点、线、线带、三角形、三角形带）装配(GL_POINTS、GL_TRIANGLES、GL_LINE_STRIP)
+ 2、图元（点:GL_POINTS、线、线带:GL_LINE_STRIP、三角形:GL_TRIANGLES）装配
  3、几何着色器：通过产生新顶点构造出新的（或是其它的）图元来生成其他形状；顶点着色器：把3D坐标转为另一种3D坐标，同时顶点着色器允许我们对顶点属性进行一些基本处理
  4、测试与混合：检测片段的对应的深度（和模板(Stencil)）值（后面会讲），用它们来判断这个像素是其它物体的前面还是后面，决定是否应该丢弃
  5、片段着色器：计算一个像素的最终颜色
@@ -48,11 +48,13 @@ int main(int argc,char *argv[])
 {
     // 初始化GLFW
     glfwInit();
+    // 版本好3.3
     // 主版本号
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     // 次版本号
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // 窗口尺寸不可变
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     // mac配置需要这一行
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -70,9 +72,9 @@ int main(int argc,char *argv[])
     glfwMakeContextCurrent(window);
     // 绑定键盘事件
     glfwSetKeyCallback(window, key_callback);
-    // Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
+    // 使用现代方法来检索函数指针和扩展
     glewExperimental = GL_TRUE;
-    // Initialize GLEW to setup the OpenGL Function pointers
+    // 初始化GLEW以设置OpenGL函数指针
     if (glewInit() != GLEW_OK)
     {
         std::cout << "Failed to initialize GLEW" << std::endl;
@@ -82,12 +84,16 @@ int main(int argc,char *argv[])
     // 定义窗口大小
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
+    // 设置视口大小，与窗口一样大
     glViewport(0, 0, width, height);
+    
+    // 着色器程序编译连接判断
+    GLint success;
+    // 编译错误信息
+    GLchar infoLog[512];
     
     /// 顶点着色器
     
-    GLint success;
-    GLchar infoLog[512];
     GLuint vertexShader;
     // 创建顶点着色器
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -148,7 +154,7 @@ int main(int argc,char *argv[])
         0.0f,0.5f,0.0f
     };
     
-    // 顶点缓冲对象、顶点数组对象
+    // 顶点缓冲对象、顶点数组对象（可以像顶点缓冲对象那样被绑定，任何随后的顶点属性调用都会储存在这个VAO中）
     GLuint VBO,VAO;
     // 创建顶点数组对象
     glGenVertexArrays(1, &VAO);
@@ -167,15 +173,16 @@ int main(int argc,char *argv[])
     /// 链接顶点属性
     
     // 参数说明
-    // 第一个参数：顶点位置（如前面顶点着色器声明的layout(location = 0)）
-    // 第二个参数：指定顶点属性的大小。顶点属性是一个vec3，它由3个值组成，所以大小是3
-    // 第三个参数：指定数据的类型，这里是GL_FLOAT
-    // 第四个参数：定义我们是否希望数据被标准化（设置为GL_TRUE，所有数据都会被映射到0（对于有符号型signed数据是-1）到1之间）
-    // 第五个参数：叫做步长(Stride)，它告诉我们在连续的顶点属性组之间的间隔
-    // 第六个参数：表示位置数据在缓冲中起始位置的偏移量(Offset)，当数组总包含顶点、纹理等多个顶点数据的时候用来区分顶点（纹理）以哪个点开始为x（s）
+    // 参数一：顶点位置（如前面顶点着色器声明的layout(location = 0)）
+    // 参数二：指定顶点属性的大小。顶点属性是一个vec3，它由3个值组成，所以大小是3
+    // 参数三：指定数据的类型，这里是GL_FLOAT
+    // 参数四：定义我们是否希望数据被标准化（设置为GL_TRUE，所有数据都会被映射到0（对于有符号型signed数据是-1）到1之间）
+    // 参数五：叫做步长(Stride)，它告诉我们在连续的顶点属性组之间的间隔
+    // 参数六：表示位置数据在缓冲中起始位置的偏移量(Offset)，当数组总包含顶点、纹理等多个顶点数据的时候用来区分顶点（纹理）以哪个点开始为x（s）
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(GLfloat) *3,(GLvoid*)0);
     // 以顶点属性位置值作为参数，启用顶点属性
     glEnableVertexAttribArray(0);
+    // 通常情况下配置好OpenGL对象以后要解绑它们，这样才不会在其它地方错误地配置它们。
     // 取消绑定VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     // 取消当前绑定VAO
@@ -185,8 +192,9 @@ int main(int argc,char *argv[])
     // 开启循环绘制
     while (!glfwWindowShouldClose(window))
     {
-        // 检查响应事件（鼠标、键盘输入）
+        /// 检查响应事件（鼠标、键盘输入）
         glfwPollEvents();
+        
         
         /// 渲染事件
         
@@ -199,11 +207,15 @@ int main(int argc,char *argv[])
         // 绑定顶点数组对象
         glBindVertexArray(VAO);
         // 绘制三角形
+        // 参数一：制定绘制图元类型
+        // 参数二：制定顶点其实索引
+        // 参数三：制定绘制顶点个数
         glDrawArrays(GL_TRIANGLES, 0, 3);
-        // 接触绑定VAO
+        // 解除绑定VAO
         glBindVertexArray(0);
         
-        // S交换屏幕缓冲区
+        
+        /// 交换屏幕缓冲区
         glfwSwapBuffers(window);
     }
 
