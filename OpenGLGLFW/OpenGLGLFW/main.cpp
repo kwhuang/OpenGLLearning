@@ -149,18 +149,30 @@ int main(int argc,char *argv[])
     glDeleteShader(fragmentShader);
     
     // 顶点数组
-    GLfloat vertex[] = {
-        -0.5f,-0.5f,0.0f,
-        0.5f,-0.5f,0.0f,
-        0.0f,0.5f,0.0f
+    GLfloat vertices[] = {
+        0.5f, 0.5f, 0.0f,   // 右上角
+        0.5f, -0.5f, 0.0f,  // 右下角
+        -0.5f, -0.5f, 0.0f, // 左下角
+        -0.5f, 0.5f, 0.0f   // 左上角
+    };
+
+    // 索引
+    GLuint indices[] = { // 注意索引从0开始!
+        0, 1, 3, // 第一个三角形
+        1, 2, 3  // 第二个三角形
     };
     
-    // 顶点缓冲对象、顶点数组对象（可以像顶点缓冲对象那样被绑定，任何随后的顶点属性调用都会储存在这个VAO中）
-    GLuint VBO,VAO;
+    // VBO:顶点缓冲对象
+    // VAO:顶点数组对象（可以像顶点缓冲对象那样被绑定，任何随后的顶点属性调用都会储存在这个VAO中）
+    // EBO:索引缓冲对象
+    GLuint VBO,VAO,EBO;
     // 创建顶点数组对象
     glGenVertexArrays(1, &VAO);
     // 创建顶点缓冲对象
     glGenBuffers(1, &VBO);
+    // 创建索引缓冲对象
+    glGenBuffers(1,&EBO);
+    
     // 绑定点点数组对象
     glBindVertexArray(VAO);
     // 绑定顶点缓冲对象到GL_ARRAY_BUFFER上
@@ -169,7 +181,11 @@ int main(int argc,char *argv[])
     // GL_DYNAMIC_DRAW：数据会被改变很多。
     // GL_STREAM_DRAW ：数据每次绘制时都会改变。
     // 制定绑定数据data
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    // 绑定索引缓冲对象
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
+    // 缓冲对象数据
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
     
     /// 链接顶点属性
     
@@ -211,7 +227,11 @@ int main(int argc,char *argv[])
         // 参数一：制定绘制图元类型
         // 参数二：制定顶点其实索引
         // 参数三：制定绘制顶点个数
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+//        glDrawArrays(GL_TRIANGLES, 0, 3);
+        
+        // 绘制矩形
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        
         // 解除绑定VAO
         glBindVertexArray(0);
         
