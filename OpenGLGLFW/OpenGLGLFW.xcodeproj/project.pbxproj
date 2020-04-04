@@ -12,6 +12,11 @@
 		3E17301424388D9E00D28290 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E17301324388D9E00D28290 /* CoreVideo.framework */; };
 		3E17301624388DAA00D28290 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E17301524388DAA00D28290 /* Cocoa.framework */; };
 		3E17301E24388E4200D28290 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E17301D24388E4200D28290 /* libGLEW.a */; };
+		3E173048243893C900D28290 /* libSOIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E173039243893C900D28290 /* libSOIL.a */; };
+		3E173049243893C900D28290 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E17303B243893C900D28290 /* image_helper.c */; };
+		3E17304A243893C900D28290 /* image_DXT.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E17303F243893C900D28290 /* image_DXT.c */; };
+		3E17304D243893C900D28290 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E173044243893C900D28290 /* SOIL.c */; };
+		3E17304E243893C900D28290 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E173045243893C900D28290 /* stb_image_aug.c */; };
 		815742A5243575CA00D8F876 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 815742A4243575CA00D8F876 /* Assets.xcassets */; };
 		815742A8243575CA00D8F876 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 815742A6243575CA00D8F876 /* Main.storyboard */; };
 		815742B42435762200D8F876 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742B32435762200D8F876 /* OpenGL.framework */; };
@@ -29,6 +34,17 @@
 		3E17301B24388E4200D28290 /* wglew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wglew.h; sourceTree = "<group>"; };
 		3E17301C24388E4200D28290 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
 		3E17301D24388E4200D28290 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLEW.a; sourceTree = "<group>"; };
+		3E173039243893C900D28290 /* libSOIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSOIL.a; sourceTree = "<group>"; };
+		3E17303B243893C900D28290 /* image_helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_helper.c; sourceTree = "<group>"; };
+		3E17303C243893C900D28290 /* stb_image_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_aug.h; sourceTree = "<group>"; };
+		3E17303D243893C900D28290 /* SOIL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOIL.h; sourceTree = "<group>"; };
+		3E17303E243893C900D28290 /* stbi_DDS_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug.h; sourceTree = "<group>"; };
+		3E17303F243893C900D28290 /* image_DXT.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_DXT.c; sourceTree = "<group>"; };
+		3E173043243893C900D28290 /* stbi_DDS_aug_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug_c.h; sourceTree = "<group>"; };
+		3E173044243893C900D28290 /* SOIL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SOIL.c; sourceTree = "<group>"; };
+		3E173045243893C900D28290 /* stb_image_aug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_aug.c; sourceTree = "<group>"; };
+		3E173046243893C900D28290 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_helper.h; sourceTree = "<group>"; };
+		3E173047243893C900D28290 /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_DXT.h; sourceTree = "<group>"; };
 		8157429B243575C800D8F876 /* OpenGLGLFW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLGLFW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		815742A4243575CA00D8F876 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		815742A7243575CA00D8F876 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -53,6 +69,7 @@
 				3E17301224388D9300D28290 /* IOKit.framework in Frameworks */,
 				815742D7243592EE00D8F876 /* GLUT.framework in Frameworks */,
 				815742B42435762200D8F876 /* OpenGL.framework in Frameworks */,
+				3E173048243893C900D28290 /* libSOIL.a in Frameworks */,
 				815742D524357A6C00D8F876 /* libglfw.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +112,32 @@
 			path = GL;
 			sourceTree = "<group>";
 		};
+		3E173038243893C900D28290 /* SOIL */ = {
+			isa = PBXGroup;
+			children = (
+				3E173039243893C900D28290 /* libSOIL.a */,
+				3E17303A243893C900D28290 /* src */,
+			);
+			path = SOIL;
+			sourceTree = "<group>";
+		};
+		3E17303A243893C900D28290 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				3E17303F243893C900D28290 /* image_DXT.c */,
+				3E173047243893C900D28290 /* image_DXT.h */,
+				3E17303B243893C900D28290 /* image_helper.c */,
+				3E173046243893C900D28290 /* image_helper.h */,
+				3E173044243893C900D28290 /* SOIL.c */,
+				3E17303D243893C900D28290 /* SOIL.h */,
+				3E173045243893C900D28290 /* stb_image_aug.c */,
+				3E17303C243893C900D28290 /* stb_image_aug.h */,
+				3E173043243893C900D28290 /* stbi_DDS_aug_c.h */,
+				3E17303E243893C900D28290 /* stbi_DDS_aug.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		81574292243575C800D8F876 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +158,7 @@
 		8157429D243575C800D8F876 /* OpenGLGLFW */ = {
 			isa = PBXGroup;
 			children = (
+				3E173038243893C900D28290 /* SOIL */,
 				3E17301724388E4200D28290 /* GLEW */,
 				3E172FE224388C3800D28290 /* Resources */,
 				815742B7243576BF00D8F876 /* GLFW */,
@@ -244,6 +288,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				815742B62435763000D8F876 /* main.cpp in Sources */,
+				3E17304E243893C900D28290 /* stb_image_aug.c in Sources */,
+				3E17304D243893C900D28290 /* SOIL.c in Sources */,
+				3E173049243893C900D28290 /* image_helper.c in Sources */,
+				3E17304A243893C900D28290 /* image_DXT.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

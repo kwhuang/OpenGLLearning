@@ -13,6 +13,7 @@
 #include "glew.h"
 #include "glfw3.h"
 #include "glfw3native.h"
+#include "SOIL.h"
 
 /*
  图形渲染管线：
