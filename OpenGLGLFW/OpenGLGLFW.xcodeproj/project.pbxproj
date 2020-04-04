@@ -7,20 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E172FE124388BB400D28290 /* libSOIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E172FE024388BB400D28290 /* libSOIL.a */; };
 		3E172FE424388C3800D28290 /* wall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E172FE324388C3800D28290 /* wall.jpg */; };
+		3E17301224388D9300D28290 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E17301124388D9300D28290 /* IOKit.framework */; };
+		3E17301424388D9E00D28290 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E17301324388D9E00D28290 /* CoreVideo.framework */; };
+		3E17301624388DAA00D28290 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E17301524388DAA00D28290 /* Cocoa.framework */; };
+		3E17301E24388E4200D28290 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E17301D24388E4200D28290 /* libGLEW.a */; };
 		815742A5243575CA00D8F876 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 815742A4243575CA00D8F876 /* Assets.xcassets */; };
 		815742A8243575CA00D8F876 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 815742A6243575CA00D8F876 /* Main.storyboard */; };
 		815742B42435762200D8F876 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742B32435762200D8F876 /* OpenGL.framework */; };
 		815742B62435763000D8F876 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815742B52435763000D8F876 /* main.cpp */; };
-		815742D32435797700D8F876 /* libGLTools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742D22435797700D8F876 /* libGLTools.a */; };
 		815742D524357A6C00D8F876 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742D424357A6C00D8F876 /* libglfw.3.dylib */; };
 		815742D7243592EE00D8F876 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742D6243592EE00D8F876 /* GLUT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3E172FE024388BB400D28290 /* libSOIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSOIL.a; sourceTree = "<group>"; };
 		3E172FE324388C3800D28290 /* wall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall.jpg; sourceTree = "<group>"; };
+		3E17301124388D9300D28290 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		3E17301324388D9E00D28290 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		3E17301524388DAA00D28290 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		3E17301A24388E4200D28290 /* glxew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glxew.h; sourceTree = "<group>"; };
+		3E17301B24388E4200D28290 /* wglew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wglew.h; sourceTree = "<group>"; };
+		3E17301C24388E4200D28290 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
+		3E17301D24388E4200D28290 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLEW.a; sourceTree = "<group>"; };
 		8157429B243575C800D8F876 /* OpenGLGLFW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLGLFW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		815742A4243575CA00D8F876 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		815742A7243575CA00D8F876 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -30,21 +38,6 @@
 		815742B52435763000D8F876 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		815742BA243576BF00D8F876 /* glfw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3.h; sourceTree = "<group>"; };
 		815742BB243576BF00D8F876 /* glfw3native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3native.h; sourceTree = "<group>"; };
-		815742C32435797700D8F876 /* GLBatchBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBatchBase.h; sourceTree = "<group>"; };
-		815742C42435797700D8F876 /* math3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math3d.h; sourceTree = "<group>"; };
-		815742C52435797700D8F876 /* GLTriangleBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTriangleBatch.h; sourceTree = "<group>"; };
-		815742C62435797700D8F876 /* GLBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBatch.h; sourceTree = "<group>"; };
-		815742C72435797700D8F876 /* GLMatrixStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLMatrixStack.h; sourceTree = "<group>"; };
-		815742C82435797700D8F876 /* GLFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLFrame.h; sourceTree = "<group>"; };
-		815742C92435797700D8F876 /* GLFrustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLFrustum.h; sourceTree = "<group>"; };
-		815742CA2435797700D8F876 /* GLGeometryTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLGeometryTransform.h; sourceTree = "<group>"; };
-		815742CB2435797700D8F876 /* GLShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLShaderManager.h; sourceTree = "<group>"; };
-		815742CC2435797700D8F876 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
-		815742CE2435797700D8F876 /* glxew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glxew.h; sourceTree = "<group>"; };
-		815742CF2435797700D8F876 /* wglew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wglew.h; sourceTree = "<group>"; };
-		815742D02435797700D8F876 /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
-		815742D12435797700D8F876 /* GLTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLTools.h; sourceTree = "<group>"; };
-		815742D22435797700D8F876 /* libGLTools.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLTools.a; sourceTree = "<group>"; };
 		815742D424357A6C00D8F876 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libglfw.3.dylib; sourceTree = "<group>"; };
 		815742D6243592EE00D8F876 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -54,31 +47,52 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E17301624388DAA00D28290 /* Cocoa.framework in Frameworks */,
+				3E17301424388D9E00D28290 /* CoreVideo.framework in Frameworks */,
+				3E17301E24388E4200D28290 /* libGLEW.a in Frameworks */,
+				3E17301224388D9300D28290 /* IOKit.framework in Frameworks */,
 				815742D7243592EE00D8F876 /* GLUT.framework in Frameworks */,
 				815742B42435762200D8F876 /* OpenGL.framework in Frameworks */,
 				815742D524357A6C00D8F876 /* libglfw.3.dylib in Frameworks */,
-				3E172FE124388BB400D28290 /* libSOIL.a in Frameworks */,
-				815742D32435797700D8F876 /* libGLTools.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3E172FDF24388BB400D28290 /* SOIL */ = {
-			isa = PBXGroup;
-			children = (
-				3E172FE024388BB400D28290 /* libSOIL.a */,
-			);
-			path = SOIL;
-			sourceTree = "<group>";
-		};
 		3E172FE224388C3800D28290 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				3E172FE324388C3800D28290 /* wall.jpg */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		3E17301724388E4200D28290 /* GLEW */ = {
+			isa = PBXGroup;
+			children = (
+				3E17301824388E4200D28290 /* include */,
+				3E17301D24388E4200D28290 /* libGLEW.a */,
+			);
+			path = GLEW;
+			sourceTree = "<group>";
+		};
+		3E17301824388E4200D28290 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				3E17301924388E4200D28290 /* GL */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		3E17301924388E4200D28290 /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				3E17301A24388E4200D28290 /* glxew.h */,
+				3E17301B24388E4200D28290 /* wglew.h */,
+				3E17301C24388E4200D28290 /* glew.h */,
+			);
+			path = GL;
 			sourceTree = "<group>";
 		};
 		81574292243575C800D8F876 = {
@@ -101,9 +115,8 @@
 		8157429D243575C800D8F876 /* OpenGLGLFW */ = {
 			isa = PBXGroup;
 			children = (
+				3E17301724388E4200D28290 /* GLEW */,
 				3E172FE224388C3800D28290 /* Resources */,
-				3E172FDF24388BB400D28290 /* SOIL */,
-				815742C12435797700D8F876 /* OpenGL */,
 				815742B7243576BF00D8F876 /* GLFW */,
 				815742A4243575CA00D8F876 /* Assets.xcassets */,
 				815742A6243575CA00D8F876 /* Main.storyboard */,
@@ -117,6 +130,9 @@
 		815742B22435762200D8F876 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E17301524388DAA00D28290 /* Cocoa.framework */,
+				3E17301324388D9E00D28290 /* CoreVideo.framework */,
+				3E17301124388D9300D28290 /* IOKit.framework */,
 				815742D6243592EE00D8F876 /* GLUT.framework */,
 				815742B32435762200D8F876 /* OpenGL.framework */,
 			);
@@ -155,44 +171,6 @@
 				815742D424357A6C00D8F876 /* libglfw.3.dylib */,
 			);
 			path = "lib-macos";
-			sourceTree = "<group>";
-		};
-		815742C12435797700D8F876 /* OpenGL */ = {
-			isa = PBXGroup;
-			children = (
-				815742C22435797700D8F876 /* include */,
-				815742D22435797700D8F876 /* libGLTools.a */,
-			);
-			path = OpenGL;
-			sourceTree = "<group>";
-		};
-		815742C22435797700D8F876 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				815742C32435797700D8F876 /* GLBatchBase.h */,
-				815742C42435797700D8F876 /* math3d.h */,
-				815742C52435797700D8F876 /* GLTriangleBatch.h */,
-				815742C62435797700D8F876 /* GLBatch.h */,
-				815742C72435797700D8F876 /* GLMatrixStack.h */,
-				815742C82435797700D8F876 /* GLFrame.h */,
-				815742C92435797700D8F876 /* GLFrustum.h */,
-				815742CA2435797700D8F876 /* GLGeometryTransform.h */,
-				815742CB2435797700D8F876 /* GLShaderManager.h */,
-				815742CC2435797700D8F876 /* StopWatch.h */,
-				815742CD2435797700D8F876 /* GL */,
-				815742D12435797700D8F876 /* GLTools.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		815742CD2435797700D8F876 /* GL */ = {
-			isa = PBXGroup;
-			children = (
-				815742CE2435797700D8F876 /* glxew.h */,
-				815742CF2435797700D8F876 /* wglew.h */,
-				815742D02435797700D8F876 /* glew.h */,
-			);
-			path = GL;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,6 +389,7 @@
 					"\"$(SRCROOT)/OpenGLGLFW/OpenGL/\"",
 					"\"$(SRCROOT)/OpenGLGLFW/GLFW/lib-macos/\"",
 					"$(PROJECT_DIR)/OpenGLGLFW/SOIL",
+					"$(PROJECT_DIR)/OpenGLGLFW/GLEW",
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "hq-kven.OpenGLGLFW";
@@ -437,6 +416,7 @@
 					"\"$(SRCROOT)/OpenGLGLFW/OpenGL/\"",
 					"\"$(SRCROOT)/OpenGLGLFW/GLFW/lib-macos/\"",
 					"$(PROJECT_DIR)/OpenGLGLFW/SOIL",
+					"$(PROJECT_DIR)/OpenGLGLFW/GLEW",
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "hq-kven.OpenGLGLFW";
