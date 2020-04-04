@@ -34,15 +34,24 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // Shaders
 const GLchar* vertexShaderSource = "#version 330 core\n"
     "layout (location = 0) in vec3 position;\n"
+    "layout (location = 1) in vec3 color;\n"
+    "layout (location = 2) in vec2 texCoord;\n"
+    "out vec3 ourColor;\n"
+    "out vec2 TexCoord;\n"
     "void main()\n"
     "{\n"
     "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
+    "ourColor = ourColor;\n"
+    "TexCoord = texCoord;\n"
     "}\0";
 const GLchar* fragmentShaderSource = "#version 330 core\n"
+    "in vec3 ourColor;\n"
+    "in vec2 TexCoord;\n"
     "out vec4 color;\n"
+    "uniform sampler2D ourTexture;\n"
     "void main()\n"
     "{\n"
-    "color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    "color = texture(ourTexture, TexCoord);\n"
     "}\n\0";
 
 int main(int argc,char *argv[])
@@ -150,10 +159,11 @@ int main(int argc,char *argv[])
     
     // 顶点数组
     GLfloat vertices[] = {
-        0.5f, 0.5f, 0.0f,   // 右上角
-        0.5f, -0.5f, 0.0f,  // 右下角
-        -0.5f, -0.5f, 0.0f, // 左下角
-        -0.5f, 0.5f, 0.0f   // 左上角
+    //     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
+         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
+         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
+        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
+        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
     };
 
     // 索引
@@ -196,14 +206,54 @@ int main(int argc,char *argv[])
     // 参数四：定义我们是否希望数据被标准化（设置为GL_TRUE，所有数据都会被映射到0（对于有符号型signed数据是-1）到1之间）
     // 参数五：叫做步长(Stride)，它告诉我们在连续的顶点属性组之间的间隔
     // 参数六：表示位置数据在缓冲中起始位置的偏移量(Offset)，当数组总包含顶点、纹理等多个顶点数据的时候用来区分顶点（纹理）以哪个点开始为x（s）
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(GLfloat) *3,(GLvoid*)0);
+    // 顶点
+    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(GLfloat) *8,(GLvoid*)0);
     // 以顶点属性位置值作为参数，启用顶点属性
     glEnableVertexAttribArray(0);
-    // 通常情况下配置好OpenGL对象以后要解绑它们，这样才不会在其它地方错误地配置它们。
-    // 取消绑定VBO
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    
+    // 颜色
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    // 以顶点属性位置值作为参数，启用顶点属性
+    glEnableVertexAttribArray(1);
+    
+    // 纹理
+    glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,sizeof(GLfloat) *8,(GLvoid*)(6* sizeof(GLfloat)));
+    // 以顶点属性位置值作为参数，启用顶点属性
+    glEnableVertexAttribArray(2);
+    
     // 取消当前绑定VAO
     glBindVertexArray(0);
+    
+    /// 纹理
+    
+    // 声明常见纹理
+    GLuint texture;
+    glGenTextures(1, &texture);
+    // 绑定纹理
+    glBindTexture(GL_TEXTURE_2D, texture);
+    // 配置纹理过滤
+    // 设置S轴过滤
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    // 设置T轴过滤
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    // 设置缩小过滤，多级渐远过滤
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    // 设置放大过滤时使用渐远纹理过滤方式设置无效，此处设置线性过滤
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // 加载纹理数据
+    // 制定纹理宽高
+    int texWidth,texHeight;
+    // 加载图片数据
+    unsigned char* image = SOIL_load_image("wall.jpg", &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
+    // 载入纹理
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    // 设置此选项OpenGL会自动生成多级渐远纹理
+    glGenerateMipmap(GL_TEXTURE_2D);
+    // 释放图片资源
+    SOIL_free_image_data(image);
+    // 解除绑定纹理
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
     
 
     // 开启循环绘制
@@ -219,8 +269,16 @@ int main(int argc,char *argv[])
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
+        // 激活纹理对象0
+        glActiveTexture(GL_TEXTURE0);
+        // 绑定纹理
+        glBindTexture(GL_TEXTURE_2D, texture);
+        // uniform设置纹理
+        glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture"), 0);
+        
         // 激活着色程序
         glUseProgram(shaderProgram);
+        
         // 绑定顶点数组对象
         glBindVertexArray(VAO);
         // 绘制三角形
@@ -239,6 +297,11 @@ int main(int argc,char *argv[])
         /// 交换屏幕缓冲区
         glfwSwapBuffers(window);
     }
+    
+    // 释放缓冲对象资源以便重新分配
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
 
     // 释放资源
     glfwTerminate();
