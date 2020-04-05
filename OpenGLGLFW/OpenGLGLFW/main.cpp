@@ -42,16 +42,17 @@ const GLchar* vertexShaderSource = "#version 330 core\n"
     "{\n"
     "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
     "ourColor = ourColor;\n"
-    "TexCoord = texCoord;\n"
+    "TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);\n"
     "}\0";
 const GLchar* fragmentShaderSource = "#version 330 core\n"
     "in vec3 ourColor;\n"
     "in vec2 TexCoord;\n"
     "out vec4 color;\n"
-    "uniform sampler2D ourTexture;\n"
+    "uniform sampler2D ourTexture1;\n"
+    "uniform sampler2D ourTexture2;\n"
     "void main()\n"
     "{\n"
-    "color = texture(ourTexture, TexCoord);\n"
+    "color = mix(texture(ourTexture1, TexCoord), texture(ourTexture2, TexCoord), 0.2);\n"
     "}\n\0";
 
 int main(int argc,char *argv[])
@@ -227,7 +228,10 @@ int main(int argc,char *argv[])
     /// 纹理
     
     // 声明常见纹理
-    GLuint texture;
+    GLuint texture,texture2;
+    
+    /// 第一个纹理
+    
     glGenTextures(1, &texture);
     // 绑定纹理
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -255,6 +259,35 @@ int main(int argc,char *argv[])
     glBindTexture(GL_TEXTURE_2D, 0);
     
     
+    /// 第二个纹理
+    
+    glGenTextures(1, &texture2);
+    // 绑定纹理
+    glBindTexture(GL_TEXTURE_2D, texture2);
+    // 配置纹理过滤
+    // 设置S轴过滤
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    // 设置T轴过滤
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    // 设置缩小过滤，多级渐远过滤
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    // 设置放大过滤时使用渐远纹理过滤方式设置无效，此处设置线性过滤
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // 加载纹理数据
+    // 制定纹理宽高
+    int tex2Width,tex2Height;
+    // 加载图片数据
+    unsigned char* image2 = SOIL_load_image("awesomeface.jpg", &tex2Width, &tex2Height, 0, SOIL_LOAD_RGB);
+    // 载入纹理
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex2Width, tex2Height, 0, GL_RGB, GL_UNSIGNED_BYTE, image2);
+    // 设置此选项OpenGL会自动生成多级渐远纹理
+    glGenerateMipmap(GL_TEXTURE_2D);
+    // 释放图片资源
+    SOIL_free_image_data(image2);
+    // 解除绑定纹理
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
+    
 
     // 开启循环绘制
     while (!glfwWindowShouldClose(window))
@@ -274,7 +307,12 @@ int main(int argc,char *argv[])
         // 绑定纹理
         glBindTexture(GL_TEXTURE_2D, texture);
         // uniform设置纹理
-        glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture"), 0);
+        glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture1"), 0);
+        
+        // 激活纹理对象1
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture2);
+        glUniform1i(glGetUniformLocation(shaderProgram,"ourTexture2"),1);
         
         // 激活着色程序
         glUseProgram(shaderProgram);
