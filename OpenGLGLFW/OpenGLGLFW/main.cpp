@@ -32,30 +32,6 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 // 申明键盘输入回调
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-// Shaders
-const GLchar* vertexShaderSource = "#version 330 core\n"
-    "layout (location = 0) in vec3 position;\n"
-    "layout (location = 1) in vec3 color;\n"
-    "layout (location = 2) in vec2 texCoord;\n"
-    "out vec3 ourColor;\n"
-    "out vec2 TexCoord;\n"
-    "void main()\n"
-    "{\n"
-    "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
-    "ourColor = ourColor;\n"
-    "TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);\n"
-    "}\0";
-const GLchar* fragmentShaderSource = "#version 330 core\n"
-    "in vec3 ourColor;\n"
-    "in vec2 TexCoord;\n"
-    "out vec4 color;\n"
-    "uniform sampler2D ourTexture1;\n"
-    "uniform sampler2D ourTexture2;\n"
-    "void main()\n"
-    "{\n"
-    "color = mix(texture(ourTexture1, TexCoord), texture(ourTexture2, TexCoord), 0.2);\n"
-    "}\n\0";
-
 int main(int argc,char *argv[])
 {
     // 初始化GLFW
@@ -263,18 +239,17 @@ int main(int argc,char *argv[])
         
         // 绑定顶点数组对象
         glBindVertexArray(VAO);
+        
         // 绘制三角形
         // 参数一：制定绘制图元类型
         // 参数二：制定顶点其实索引
         // 参数三：制定绘制顶点个数
-//        glDrawArrays(GL_TRIANGLES, 0, 3);
-        
+        // glDrawArrays(GL_TRIANGLES, 0, 3);
         // 绘制矩形
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         
         // 解除绑定VAO
         glBindVertexArray(0);
-        
         
         /// 交换屏幕缓冲区
         glfwSwapBuffers(window);
