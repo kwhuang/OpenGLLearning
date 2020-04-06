@@ -18,6 +18,9 @@
 		3E17304D243893C900D28290 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E173044243893C900D28290 /* SOIL.c */; };
 		3E17304E243893C900D28290 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E173045243893C900D28290 /* stb_image_aug.c */; };
 		3E326201243A426F00AF1842 /* awesomeface.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E326200243A426F00AF1842 /* awesomeface.jpg */; };
+		3E4FA82B243B37D200CBF636 /* shader.vs in Resources */ = {isa = PBXBuildFile; fileRef = 3E4FA828243B37D200CBF636 /* shader.vs */; };
+		3E4FA82C243B37D200CBF636 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E4FA829243B37D200CBF636 /* Shader.cpp */; };
+		3E4FA82D243B37D200CBF636 /* shader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 3E4FA82A243B37D200CBF636 /* shader.frag */; };
 		815742A5243575CA00D8F876 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 815742A4243575CA00D8F876 /* Assets.xcassets */; };
 		815742A8243575CA00D8F876 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 815742A6243575CA00D8F876 /* Main.storyboard */; };
 		815742B42435762200D8F876 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742B32435762200D8F876 /* OpenGL.framework */; };
@@ -47,6 +50,9 @@
 		3E173046243893C900D28290 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_helper.h; sourceTree = "<group>"; };
 		3E173047243893C900D28290 /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_DXT.h; sourceTree = "<group>"; };
 		3E326200243A426F00AF1842 /* awesomeface.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = awesomeface.jpg; sourceTree = "<group>"; };
+		3E4FA828243B37D200CBF636 /* shader.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vs; sourceTree = "<group>"; };
+		3E4FA829243B37D200CBF636 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		3E4FA82A243B37D200CBF636 /* shader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.frag; sourceTree = "<group>"; };
 		8157429B243575C800D8F876 /* OpenGLGLFW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLGLFW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		815742A4243575CA00D8F876 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		815742A7243575CA00D8F876 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -141,6 +147,16 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		3E4FA827243B37D200CBF636 /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				3E4FA828243B37D200CBF636 /* shader.vs */,
+				3E4FA829243B37D200CBF636 /* Shader.cpp */,
+				3E4FA82A243B37D200CBF636 /* shader.frag */,
+			);
+			path = Shader;
+			sourceTree = "<group>";
+		};
 		81574292243575C800D8F876 = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +177,7 @@
 		8157429D243575C800D8F876 /* OpenGLGLFW */ = {
 			isa = PBXGroup;
 			children = (
+				3E4FA827243B37D200CBF636 /* Shader */,
 				3E173038243893C900D28290 /* SOIL */,
 				3E17301724388E4200D28290 /* GLEW */,
 				3E172FE224388C3800D28290 /* Resources */,
@@ -277,7 +294,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E4FA82D243B37D200CBF636 /* shader.frag in Resources */,
 				815742A5243575CA00D8F876 /* Assets.xcassets in Resources */,
+				3E4FA82B243B37D200CBF636 /* shader.vs in Resources */,
 				3E172FE424388C3800D28290 /* wall.jpg in Resources */,
 				3E326201243A426F00AF1842 /* awesomeface.jpg in Resources */,
 				815742A8243575CA00D8F876 /* Main.storyboard in Resources */,
@@ -294,6 +313,7 @@
 				815742B62435763000D8F876 /* main.cpp in Sources */,
 				3E17304E243893C900D28290 /* stb_image_aug.c in Sources */,
 				3E17304D243893C900D28290 /* SOIL.c in Sources */,
+				3E4FA82C243B37D200CBF636 /* Shader.cpp in Sources */,
 				3E173049243893C900D28290 /* image_helper.c in Sources */,
 				3E17304A243893C900D28290 /* image_DXT.c in Sources */,
 			);

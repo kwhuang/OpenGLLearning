@@ -14,6 +14,7 @@
 #include "glfw3.h"
 #include "glfw3native.h"
 #include "SOIL.h"
+#include "Shader/Shader.cpp"
 
 /*
  图形渲染管线：
@@ -98,65 +99,8 @@ int main(int argc,char *argv[])
     // 设置视口大小，与窗口一样大
     glViewport(0, 0, width, height);
     
-    // 着色器程序编译连接判断
-    GLint success;
-    // 编译错误信息
-    GLchar infoLog[512];
-    
-    /// 顶点着色器
-    
-    GLuint vertexShader;
-    // 创建顶点着色器
-    vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    // 附加着色器源码
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    // 编译着色器
-    glCompileShader(vertexShader);
-    // 判断着色器是否变异成功
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if(!success)
-    {
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-    
-    /// 片段着色器
-
-    GLuint fragmentShader;
-    // 创建片段着色器
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    // 附加着色器源码
-    glShaderSource(fragmentShader,1,&fragmentShaderSource,NULL);
-    // 编译着色器
-    glCompileShader(fragmentShader);
-    // 判断着色器是否变异成功
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if(!success)
-    {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-    
-    /// 着色器程序
-    
-    // 着色器程序对象
-    GLuint shaderProgram;
-    shaderProgram = glCreateProgram();
-    // 附加顶点着色器
-    glAttachShader(shaderProgram,vertexShader);
-    // 附加片段着色器
-    glAttachShader(shaderProgram,fragmentShader);
-    // 链接着色器程序
-    glLinkProgram(shaderProgram);
-    // 判断着色器对象是否链接成功
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if(!success) {
-        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADERPROGRAM::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-    // 激活着色器对象后需要把着色器释放
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    // 通过本地文件读取着色器程序
+    Shader ourShader("shader.vs", "shader.frag");
     
     // 顶点数组
     GLfloat vertices[] = {
@@ -307,15 +251,15 @@ int main(int argc,char *argv[])
         // 绑定纹理
         glBindTexture(GL_TEXTURE_2D, texture);
         // uniform设置纹理
-        glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture1"), 0);
+        glUniform1i(glGetUniformLocation(ourShader.Program, "ourTexture1"), 0);
         
         // 激活纹理对象1
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
-        glUniform1i(glGetUniformLocation(shaderProgram,"ourTexture2"),1);
+        glUniform1i(glGetUniformLocation(ourShader.Program,"ourTexture2"),1);
         
         // 激活着色程序
-        glUseProgram(shaderProgram);
+        ourShader.Use();
         
         // 绑定顶点数组对象
         glBindVertexArray(VAO);
