@@ -78,35 +78,65 @@ int main(int argc,char *argv[])
     glfwGetFramebufferSize(window, &width, &height);
     // 设置视口大小，与窗口一样大
     glViewport(0, 0, width, height);
+    //开启深度测试
+    glEnable(GL_DEPTH_TEST);
     
     // 通过本地文件读取着色器程序
     Shader ourShader("shader.vs", "shader.frag");
     
     // 顶点数组
-    GLfloat vertices[] = {
-    //     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
-         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
-         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
-        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
-        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
-    };
+    float vertices[] = {
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
-    // 索引
-    GLuint indices[] = { // 注意索引从0开始!
-        0, 1, 3, // 第一个三角形
-        1, 2, 3  // 第二个三角形
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
     
     // VBO:顶点缓冲对象
     // VAO:顶点数组对象（可以像顶点缓冲对象那样被绑定，任何随后的顶点属性调用都会储存在这个VAO中）
     // EBO:索引缓冲对象
-    GLuint VBO,VAO,EBO;
+    GLuint VBO,VAO;
     // 创建顶点数组对象
     glGenVertexArrays(1, &VAO);
     // 创建顶点缓冲对象
     glGenBuffers(1, &VBO);
-    // 创建索引缓冲对象
-    glGenBuffers(1,&EBO);
     
     // 绑定点点数组对象
     glBindVertexArray(VAO);
@@ -117,10 +147,6 @@ int main(int argc,char *argv[])
     // GL_STREAM_DRAW ：数据每次绘制时都会改变。
     // 制定绑定数据data
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    // 绑定索引缓冲对象
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
-    // 缓冲对象数据
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
     
     /// 链接顶点属性
     
@@ -132,17 +158,12 @@ int main(int argc,char *argv[])
     // 参数五：叫做步长(Stride)，它告诉我们在连续的顶点属性组之间的间隔
     // 参数六：表示位置数据在缓冲中起始位置的偏移量(Offset)，当数组总包含顶点、纹理等多个顶点数据的时候用来区分顶点（纹理）以哪个点开始为x（s）
     // 顶点
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(GLfloat) *8,(GLvoid*)0);
+    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(GLfloat) *5,(GLvoid*)0);
     // 以顶点属性位置值作为参数，启用顶点属性
     glEnableVertexAttribArray(0);
     
-    // 颜色
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-    // 以顶点属性位置值作为参数，启用顶点属性
-    glEnableVertexAttribArray(1);
-    
     // 纹理
-    glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,sizeof(GLfloat) *8,(GLvoid*)(6* sizeof(GLfloat)));
+    glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,sizeof(GLfloat) *5,(GLvoid*)(3* sizeof(GLfloat)));
     // 以顶点属性位置值作为参数，启用顶点属性
     glEnableVertexAttribArray(2);
     
@@ -205,9 +226,9 @@ int main(int argc,char *argv[])
         
         /// 渲染事件
         
-        // 清空屏幕的颜色缓冲
+        // 清空屏幕的颜色缓冲、深度测试缓冲
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         
         // 添加纹理
@@ -218,7 +239,6 @@ int main(int argc,char *argv[])
         glBindTexture(GL_TEXTURE_2D, texture);
         // uniform设置纹理
         glUniform1i(glGetUniformLocation(ourShader.Program, "ourTexture1"), 0);
-        
         // 激活纹理对象1
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
@@ -229,7 +249,7 @@ int main(int argc,char *argv[])
         
         // 模型矩阵
         glm::mat4 model;
-        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.5f, 1.0f, 0.0f));
         GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         // 视图矩阵
@@ -250,7 +270,7 @@ int main(int argc,char *argv[])
         glBindVertexArray(VAO);
         
         // 绘制矩形
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
         
         // 解除绑定VAO
         glBindVertexArray(0);
@@ -262,8 +282,7 @@ int main(int argc,char *argv[])
     // 释放缓冲对象资源以便重新分配
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
-
+    
     // 释放资源
     glfwTerminate();
     return 0;
