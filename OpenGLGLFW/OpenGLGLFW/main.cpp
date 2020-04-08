@@ -42,6 +42,11 @@ glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 // 上轴
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+// 记录上一个按钮及按下状态
+bool keys[1024];
+// 根据按下的按键来更新摄像机的值
+void do_movement();
+
 
 int main(int argc,char *argv[])
 {
@@ -245,6 +250,9 @@ int main(int argc,char *argv[])
         /// 检查响应事件（鼠标、键盘输入）
         glfwPollEvents();
         
+        // 根据按下的按键来更新摄像机的值
+        do_movement();
+        
         /// 渲染事件
         
         // 清空屏幕的颜色缓冲、深度测试缓冲
@@ -337,8 +345,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if(key == GLFW_KEY_S)
         cameraPos -= cameraSpeed * cameraFront;
     if(key == GLFW_KEY_A)
-        // 标准化相机位置
+        // 右向量标准化，如果我们没对这个向量进行标准化，最后的叉乘结果会根据cameraFront变量的大小返回不同的大小
         cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     if(key == GLFW_KEY_D)
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    // 按钮按下、松手记录状态
+    if(action == GLFW_PRESS)
+        keys[key] = true;
+    else if(action == GLFW_RELEASE)
+        keys[key] = false;
+}
+
+void do_movement()
+{
+  // 摄像机控制
+  GLfloat cameraSpeed = 0.01f;
+  if(keys[GLFW_KEY_W])
+    cameraPos += cameraSpeed * cameraFront;
+  if(keys[GLFW_KEY_S])
+    cameraPos -= cameraSpeed * cameraFront;
+  if(keys[GLFW_KEY_A])
+    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+  if(keys[GLFW_KEY_D])
+    cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
