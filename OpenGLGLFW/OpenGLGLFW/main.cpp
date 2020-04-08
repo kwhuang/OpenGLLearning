@@ -211,13 +211,6 @@ int main(int argc,char *argv[])
     // 解除绑定纹理
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    /// glm变换组合矩阵（其实就是矩阵叉乘得到的结果）
-    
-    // 先缩小后旋转矩阵，注意先后顺序（先调用的矩阵是排在最右边的，所以需要先生成旋转矩阵，再生成缩放矩阵）
-    glm::mat4 trans;
-    trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-    trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
-
     // 开启循环绘制
     while (!glfwWindowShouldClose(window))
     {
@@ -244,6 +237,17 @@ int main(int argc,char *argv[])
         glUniform1i(glGetUniformLocation(ourShader.Program,"ourTexture2"),1);
         
         // 设置矩阵
+        
+        /// glm变换组合矩阵（其实就是矩阵叉乘得到的结果）
+        
+        // 缩小旋转
+        glm::mat4 trans;
+        // trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+        // trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+
+        // 平移旋转
+        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+        trans = glm::rotate(trans,(GLfloat)glfwGetTime() * 50.0f, glm::vec3(0.0f, 0.0f, 1.0f));
         GLuint transformLoc = glGetUniformLocation(ourShader.Program, "transform");
         glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
         
