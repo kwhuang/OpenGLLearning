@@ -266,7 +266,7 @@ int main(int argc,char *argv[])
         model = glm::rotate(model, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.5f, 1.0f, 0.0f));
         GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        // 视图矩阵
+        // 观察矩阵
         glm::mat4 view;
         view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
@@ -286,13 +286,21 @@ int main(int argc,char *argv[])
         // 绘制矩形
         for (GLuint i = 0; i < 10; i++)
         {
+            // 重新设置观察矩阵
+            GLfloat radius = 10.0f;
+            GLfloat camX = sin(glfwGetTime()) * radius;
+            GLfloat camZ = cos(glfwGetTime()) * radius;
+            glm::mat4 view;
+            view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+            
             // 重新设置正方体位置
             glm::mat4 model;
             // 移动
             model = glm::translate(model, cubePositions[i]);
             GLfloat angle = 20.0f * i;
             // 旋转角度
-            model = glm::rotate(model, (GLfloat)glfwGetTime() * 0.5f + angle, glm::vec3(1.0f, 0.3f, 0.5f));
+            model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
