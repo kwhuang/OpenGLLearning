@@ -129,6 +129,20 @@ int main(int argc,char *argv[])
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
     
+    // 正方体世界空间位置
+    glm::vec3 cubePositions[] = {
+      glm::vec3( 0.0f,  0.0f,  0.0f),
+      glm::vec3( 2.0f,  5.0f, -15.0f),
+      glm::vec3(-1.5f, -2.2f, -2.5f),
+      glm::vec3(-3.8f, -2.0f, -12.3f),
+      glm::vec3( 2.4f, -0.4f, -3.5f),
+      glm::vec3(-1.7f,  3.0f, -7.5f),
+      glm::vec3( 1.3f, -2.0f, -2.5f),
+      glm::vec3( 1.5f,  2.0f, -2.5f),
+      glm::vec3( 1.5f,  0.2f, -1.5f),
+      glm::vec3(-1.3f,  1.0f, -1.5f)
+    };
+    
     // VBO:顶点缓冲对象
     // VAO:顶点数组对象（可以像顶点缓冲对象那样被绑定，任何随后的顶点属性调用都会储存在这个VAO中）
     // EBO:索引缓冲对象
@@ -270,7 +284,18 @@ int main(int argc,char *argv[])
         glBindVertexArray(VAO);
         
         // 绘制矩形
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        for (GLuint i = 0; i < 10; i++)
+        {
+            // 重新设置正方体位置
+            glm::mat4 model;
+            // 移动
+            model = glm::translate(model, cubePositions[i]);
+            GLfloat angle = 20.0f * i;
+            // 旋转角度
+            model = glm::rotate(model, (GLfloat)glfwGetTime() * 0.5f + angle, glm::vec3(1.0f, 0.3f, 0.5f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
         
         // 解除绑定VAO
         glBindVertexArray(0);
