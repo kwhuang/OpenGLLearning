@@ -15,6 +15,10 @@
 #include "glfw3native.h"
 #include "SOIL.h"
 #include "Shader/Shader.cpp"
+// glm
+#include "glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 /*
  图形渲染管线：
@@ -207,7 +211,12 @@ int main(int argc,char *argv[])
     // 解除绑定纹理
     glBindTexture(GL_TEXTURE_2D, 0);
     
+    /// glm变换组合矩阵（其实就是矩阵叉乘得到的结果）
     
+    // 先缩小后旋转矩阵，注意先后顺序（先调用的矩阵是排在最右边的，所以需要先生成旋转矩阵，再生成缩放矩阵）
+    glm::mat4 trans;
+    trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+    trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
 
     // 开启循环绘制
     while (!glfwWindowShouldClose(window))
@@ -233,6 +242,10 @@ int main(int argc,char *argv[])
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
         glUniform1i(glGetUniformLocation(ourShader.Program,"ourTexture2"),1);
+        
+        // 设置矩阵
+        GLuint transformLoc = glGetUniformLocation(ourShader.Program, "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
         
         // 激活着色程序
         ourShader.Use();
