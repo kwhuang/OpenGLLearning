@@ -236,20 +236,23 @@ int main(int argc,char *argv[])
         glBindTexture(GL_TEXTURE_2D, texture2);
         glUniform1i(glGetUniformLocation(ourShader.Program,"ourTexture2"),1);
         
-        /// glm变换组合矩阵（其实就是矩阵叉乘得到的结果，注意矩阵组合先后顺序）
+        /// glm变换组合矩阵（其实就是矩阵相乘得到的结果，注意矩阵组合先后顺序，最右边的优先与向量相乘）
         
-        // 缩小旋转
-        glm::mat4 trans;
-        // trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
-        // trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-
-        // 平移旋转
-        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
-        trans = glm::rotate(trans,(GLfloat)glfwGetTime() * 50.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-        // 获取着色器程序中属性位置
-        GLuint transformLoc = glGetUniformLocation(ourShader.Program, "transform");
-        // 设置矩阵
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+        // 模型矩阵
+        glm::mat4 model;
+        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        // 视图矩阵
+        glm::mat4 view;
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        // 透视矩阵
+        glm::mat4 projection;
+        projection = glm::perspective(glm::radians(45.0f), 800.0f/600.0f, 0.1f, 100.0f);
+        GLint projectionLoc = glGetUniformLocation(ourShader.Program, "projection");
+        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
         
         // 激活着色程序
         ourShader.Use();
@@ -264,18 +267,6 @@ int main(int argc,char *argv[])
         // glDrawArrays(GL_TRIANGLES, 0, 3);
         // 绘制矩形
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        
-        // 绘制第二个矩形
-        // 重置为空矩阵
-        trans = glm::mat4();
-        trans = glm::translate(trans, glm::vec3(-0.5f, 0.5f, 0.0f));
-        GLfloat scaleAmount = sin(glfwGetTime());
-        trans = glm::scale(trans, glm::vec3(scaleAmount, scaleAmount, scaleAmount));
-        // 重新设置统一变换矩阵
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-        // 绘制矩形
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        
         
         // 解除绑定VAO
         glBindVertexArray(0);
