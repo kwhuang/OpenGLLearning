@@ -36,6 +36,13 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 // 申明键盘输入回调
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
+// 摄像机位置
+glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
+// 摄像机位置
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+// 上轴
+glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+
 int main(int argc,char *argv[])
 {
     // 初始化GLFW
@@ -287,11 +294,8 @@ int main(int argc,char *argv[])
         for (GLuint i = 0; i < 10; i++)
         {
             // 重新设置观察矩阵
-            GLfloat radius = 10.0f;
-            GLfloat camX = sin(glfwGetTime()) * radius;
-            GLfloat camZ = cos(glfwGetTime()) * radius;
-            glm::mat4 view;
-            view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+            // 通过cameraPos + cameraFront计算出观看目标位置
+            view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
             glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
             
             // 重新设置正方体位置
@@ -327,4 +331,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     // 关闭应用程序
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
+    GLfloat cameraSpeed = 0.05f;
+    if(key == GLFW_KEY_W)
+        cameraPos += cameraSpeed * cameraFront;
+    if(key == GLFW_KEY_S)
+        cameraPos -= cameraSpeed * cameraFront;
+    if(key == GLFW_KEY_A)
+        // 标准化相机位置
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    if(key == GLFW_KEY_D)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
