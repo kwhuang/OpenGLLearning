@@ -47,6 +47,11 @@ bool keys[1024];
 // 根据按下的按键来更新摄像机的值
 void do_movement();
 
+// 记录每一帧绘制时间
+GLfloat deltaTime;
+// 最后一帧绘制时间
+GLfloat lastFrame;
+
 
 int main(int argc,char *argv[])
 {
@@ -250,6 +255,11 @@ int main(int argc,char *argv[])
         /// 检查响应事件（鼠标、键盘输入）
         glfwPollEvents();
         
+        // 在每一帧中我们计算出新的deltaTime以备后用
+        GLfloat currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+        
         // 根据按下的按键来更新摄像机的值
         do_movement();
         
@@ -359,7 +369,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void do_movement()
 {
   // 摄像机控制
-  GLfloat cameraSpeed = 0.01f;
+  GLfloat cameraSpeed = 5.0f * deltaTime;
   if(keys[GLFW_KEY_W])
     cameraPos += cameraSpeed * cameraFront;
   if(keys[GLFW_KEY_S])
