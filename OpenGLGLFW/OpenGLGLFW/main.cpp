@@ -63,8 +63,12 @@ GLboolean firstMouse = true;
 GLfloat yaw = -90.0f;
 // 俯仰角
 GLfloat pitch = 0.0f;
+//
+GLfloat aspect = 45.0f;
 // 鼠标事件监听
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+// 鼠标滚动监听
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 
 int main(int argc,char *argv[])
@@ -102,6 +106,8 @@ int main(int argc,char *argv[])
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     // 添加鼠标监听
     glfwSetCursorPosCallback(window, mouse_callback);
+    // 监听鼠标滚动
+    glfwSetScrollCallback(window, scroll_callback);
     
     // 使用现代方法来检索函数指针和扩展
     glewExperimental = GL_TRUE;
@@ -320,7 +326,7 @@ int main(int argc,char *argv[])
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
         // 透视矩阵
         glm::mat4 projection;
-        projection = glm::perspective(glm::radians(45.0f), 800.0f/600.0f, 0.1f, 100.0f);
+        projection = glm::perspective(glm::radians(aspect), 800.0f/600.0f, 0.1f, 100.0f);
         GLint projectionLoc = glGetUniformLocation(ourShader.Program, "projection");
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
         
@@ -439,4 +445,15 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     front.y = sin(glm::radians(pitch));
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront = glm::normalize(front);
+}
+
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+  if(aspect >= 1.0f && aspect <= 45.0f)
+    aspect -= yoffset;
+  if(aspect <= 1.0f)
+    aspect = 1.0f;
+  if(aspect >= 45.0f)
+    aspect = 45.0f;
 }
