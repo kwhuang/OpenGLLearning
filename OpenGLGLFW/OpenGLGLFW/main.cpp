@@ -14,7 +14,9 @@
 #include "glfw3.h"
 #include "glfw3native.h"
 #include "SOIL.h"
+
 #include "Shader/Shader.cpp"
+#include "Camera/Camera.cpp"
 // glm
 #include "glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -35,19 +37,20 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 
 // 申明键盘输入回调
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+// 根据按下的按键来更新摄像机的值
+void do_movement();
+// 鼠标事件监听
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+// 鼠标滚动监听
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+
 
 /// 摄像机（观察矩阵）操作
 
-// 摄像机位置
-glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
-// 摄像机位置
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-// 上轴
-glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+// 初始化x摄像机位置
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 // 记录上一个按钮及按下状态
 bool keys[1024];
-// 根据按下的按键来更新摄像机的值
-void do_movement();
 // 记录每一帧绘制时间
 GLfloat deltaTime = 0.0f;
 // 最后一帧绘制时间
@@ -59,16 +62,6 @@ GLfloat lastFrame = 0.0f;
 GLfloat lastX = WIDTH  / 2.0,lastY = HEIGHT / 2.0;
 // 是否为第一次出现鼠标
 GLboolean firstMouse = true;
-// 偏航角
-GLfloat yaw = -90.0f;
-// 俯仰角
-GLfloat pitch = 0.0f;
-//
-GLfloat aspect = 45.0f;
-// 鼠标事件监听
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-// 鼠标滚动监听
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 
 int main(int argc,char *argv[])
@@ -314,20 +307,17 @@ int main(int argc,char *argv[])
         
         // glm变换组合矩阵（其实就是矩阵相乘得到的结果，注意矩阵组合先后顺序，最右边的优先与向量相乘）
         
-        // 模型矩阵
-        glm::mat4 model;
-        model = glm::rotate(model, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.5f, 1.0f, 0.0f));
+        // 矩阵属性位置
         GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
+        GLint projectionLoc = glGetUniformLocation(ourShader.Program, "projection");
         // 观察矩阵
         glm::mat4 view;
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-        GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
+        view = camera.GetViewMatrix();
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
         // 透视矩阵
         glm::mat4 projection;
-        projection = glm::perspective(glm::radians(aspect), 800.0f/600.0f, 0.1f, 100.0f);
-        GLint projectionLoc = glGetUniformLocation(ourShader.Program, "projection");
+        projection = glm::perspective(glm::radians(camera.Zoom), 800.0f/600.0f, 0.1f, 100.0f);
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
         
         // 激活着色程序
@@ -339,17 +329,13 @@ int main(int argc,char *argv[])
         // 绘制矩形
         for (GLuint i = 0; i < 10; i++)
         {
-            // 重新设置观察矩阵
-            // 通过cameraPos + cameraFront计算出观看目标位置
-            view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-            
-            // 重新设置正方体位置
+            // 设置正方体位置
             glm::mat4 model;
             // 移动
             model = glm::translate(model, cubePositions[i]);
             GLfloat angle = 20.0f * i;
             // 旋转角度
+            
             model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
             glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -377,16 +363,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     // 关闭应用程序
     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
-    GLfloat cameraSpeed = 0.05f;
-    if(key == GLFW_KEY_W)
-        cameraPos += cameraSpeed * cameraFront;
-    if(key == GLFW_KEY_S)
-        cameraPos -= cameraSpeed * cameraFront;
-    if(key == GLFW_KEY_A)
-        // 右向量标准化，如果我们没对这个向量进行标准化，最后的叉乘结果会根据cameraFront变量的大小返回不同的大小
-        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-    if(key == GLFW_KEY_D)
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     // 按钮按下、松手记录状态
     if(action == GLFW_PRESS)
         keys[key] = true;
@@ -397,15 +373,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void do_movement()
 {
   // 摄像机控制
-  GLfloat cameraSpeed = 5.0f * deltaTime;
   if(keys[GLFW_KEY_W])
-    cameraPos += cameraSpeed * cameraFront;
+      camera.ProcessKeyboard(FORWARD, deltaTime);
   if(keys[GLFW_KEY_S])
-    cameraPos -= cameraSpeed * cameraFront;
-  if(keys[GLFW_KEY_A])
-    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+      camera.ProcessKeyboard(BACKWARD, deltaTime);
+    if(keys[GLFW_KEY_A])
+        camera.ProcessKeyboard(LEFT, deltaTime);
   if(keys[GLFW_KEY_D])
-    cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+      camera.ProcessKeyboard(RIGHT, deltaTime);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -424,36 +399,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     lastX = xpos;
     lastY = ypos;
 
-    // 设置移动速度确保移动范围不会太大
-    GLfloat sensitivity = 0.05;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-    
-    // 记录偏航角
-    yaw   += xoffset;
-    // 记录俯仰角
-    pitch += yoffset;
-
-    if(pitch > 89.0f)
-        pitch = 89.0f;
-    if(pitch < -89.0f)
-        pitch = -89.0f;
-
-    // 根据俯仰角、偏航角计算目标向量
-    glm::vec3 front;
-    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    front.y = sin(glm::radians(pitch));
-    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(front);
+    camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-  if(aspect >= 1.0f && aspect <= 45.0f)
-    aspect -= yoffset;
-  if(aspect <= 1.0f)
-    aspect = 1.0f;
-  if(aspect >= 45.0f)
-    aspect = 45.0f;
+    camera.ProcessMouseScroll(yoffset);
 }

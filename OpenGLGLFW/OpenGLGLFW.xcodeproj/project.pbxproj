@@ -133,6 +133,7 @@
 		815742B62435763000D8F876 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 815742B52435763000D8F876 /* main.cpp */; };
 		815742D524357A6C00D8F876 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742D424357A6C00D8F876 /* libglfw.3.dylib */; };
 		815742D7243592EE00D8F876 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815742D6243592EE00D8F876 /* GLUT.framework */; };
+		818FBB26243EF269007D3334 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 818FBB25243EF269007D3334 /* Camera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -421,6 +422,7 @@
 		815742BB243576BF00D8F876 /* glfw3native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3native.h; sourceTree = "<group>"; };
 		815742D424357A6C00D8F876 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libglfw.3.dylib; sourceTree = "<group>"; };
 		815742D6243592EE00D8F876 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		818FBB25243EF269007D3334 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -816,6 +818,7 @@
 		8157429D243575C800D8F876 /* OpenGLGLFW */ = {
 			isa = PBXGroup;
 			children = (
+				818FBB24243EF257007D3334 /* Camera */,
 				3E6B5E60243CC85F005A5E00 /* glm */,
 				3E4FA827243B37D200CBF636 /* Shader */,
 				3E173038243893C900D28290 /* SOIL */,
@@ -875,6 +878,14 @@
 				815742D424357A6C00D8F876 /* libglfw.3.dylib */,
 			);
 			path = "lib-macos";
+			sourceTree = "<group>";
+		};
+		818FBB24243EF257007D3334 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				818FBB25243EF269007D3334 /* Camera.cpp */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1058,6 +1069,7 @@
 				3E6B5F73243CC860005A5E00 /* dummy.cpp in Sources */,
 				815742B62435763000D8F876 /* main.cpp in Sources */,
 				3E17304E243893C900D28290 /* stb_image_aug.c in Sources */,
+				818FBB26243EF269007D3334 /* Camera.cpp in Sources */,
 				3E17304D243893C900D28290 /* SOIL.c in Sources */,
 				3E4FA82C243B37D200CBF636 /* Shader.cpp in Sources */,
 				3E173049243893C900D28290 /* image_helper.c in Sources */,
