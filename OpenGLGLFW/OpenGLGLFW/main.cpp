@@ -36,6 +36,8 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 // 申明键盘输入回调
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
+/// 摄像机（观察矩阵）操作
+
 // 摄像机位置
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 // 摄像机位置
@@ -46,11 +48,23 @@ glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
 bool keys[1024];
 // 根据按下的按键来更新摄像机的值
 void do_movement();
-
 // 记录每一帧绘制时间
-GLfloat deltaTime;
+GLfloat deltaTime = 0.0f;
 // 最后一帧绘制时间
-GLfloat lastFrame;
+GLfloat lastFrame = 0.0f;
+
+/// 鼠标移动
+
+// 记录鼠标偏移量，以便后买呢计算俯仰角、偏航角以及两角对应的方向向量
+GLfloat lastX = WIDTH  / 2.0,lastY = HEIGHT / 2.0;
+// 是否为第一次出现鼠标
+GLboolean firstMouse = true;
+// 偏航角
+GLfloat yaw = -90.0f;
+// 俯仰角
+GLfloat pitch = 0.0f;
+// 鼠标事件监听
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 
 int main(int argc,char *argv[])
@@ -79,8 +93,16 @@ int main(int argc,char *argv[])
         return -1;
     }
     glfwMakeContextCurrent(window);
+    
+    /// 事件绑定
+    
     // 绑定键盘事件
     glfwSetKeyCallback(window, key_callback);
+    // 设置捕获鼠标位置并因此光标
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    // 添加鼠标监听
+    glfwSetCursorPosCallback(window, mouse_callback);
+    
     // 使用现代方法来检索函数指针和扩展
     glewExperimental = GL_TRUE;
     // 初始化GLEW以设置OpenGL函数指针
@@ -378,4 +400,43 @@ void do_movement()
     cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
   if(keys[GLFW_KEY_D])
     cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    // 判断是否为首次出现鼠标位置，避免因初始位置偏移量过大产生跳动
+    if(firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+    // 鼠标偏移量
+    GLfloat xoffset = xpos - lastX;
+    GLfloat yoffset = lastY - ypos;
+    // 记录最后一帧鼠标偏移量
+    lastX = xpos;
+    lastY = ypos;
+
+    // 设置移动速度确保移动范围不会太大
+    GLfloat sensitivity = 0.05;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+    
+    // 记录偏航角
+    yaw   += xoffset;
+    // 记录俯仰角
+    pitch += yoffset;
+
+    if(pitch > 89.0f)
+        pitch = 89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+
+    // 根据俯仰角、偏航角计算目标向量
+    glm::vec3 front;
+    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front.y = sin(glm::radians(pitch));
+    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    cameraFront = glm::normalize(front);
 }
