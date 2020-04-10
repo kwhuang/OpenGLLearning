@@ -43,7 +43,7 @@ GLfloat lastY  =  HEIGHT / 2.0;
 bool    keys[1024];
 
 // 光源位置
-glm::vec3 lightPos(0.8f, 1.0f, 2.0f);
+glm::vec3 lightPos(1.2f, 1.0f, 1.0f);
 
 // 每一帧绘制事件
 GLfloat deltaTime = 0.0f;   
@@ -197,7 +197,7 @@ int main(int argc,char *argv[]) {
 
         glBindVertexArray(VAO);
         glm::mat4 model;
-        model = glm::rotate(model, 5.0f, glm::vec3(1.0f, 0.3f, 0.5f));
+        model = glm::rotate(model, -5.0f, glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);

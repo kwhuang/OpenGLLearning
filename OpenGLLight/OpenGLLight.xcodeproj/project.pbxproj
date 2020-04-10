@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E57185924409AB500CB0C76 /* lightShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 3E57185724409AB500CB0C76 /* lightShader.frag */; };
+		3E57185A24409AB500CB0C76 /* lightShader.vs in Resources */ = {isa = PBXBuildFile; fileRef = 3E57185824409AB500CB0C76 /* lightShader.vs */; };
 		81C8051D24401C1D00A7F5E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C8051C24401C1D00A7F5E3 /* Assets.xcassets */; };
 		81C8052024401C1D00A7F5E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81C8051E24401C1D00A7F5E3 /* Main.storyboard */; };
 		81C8063D24401C3E00A7F5E3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C8053024401C3D00A7F5E3 /* libGLEW.a */; };
@@ -123,11 +125,11 @@
 		81C806AF24401C4C00A7F5E3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81C806AE24401C4C00A7F5E3 /* main.cpp */; };
 		81C806B224401E5E00A7F5E3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C806B124401E5E00A7F5E3 /* OpenGL.framework */; };
 		81C806BD24402F5300A7F5E3 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81C806BC24402F5300A7F5E3 /* Camera.cpp */; };
-		81C806BF2440417F00A7F5E3 /* lightShader.vs in Sources */ = {isa = PBXBuildFile; fileRef = 81C806BE2440417F00A7F5E3 /* lightShader.vs */; };
-		81C806C1244041A900A7F5E3 /* lightShader.frag in Sources */ = {isa = PBXBuildFile; fileRef = 81C806C0244041A900A7F5E3 /* lightShader.frag */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E57185724409AB500CB0C76 /* lightShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = lightShader.frag; sourceTree = "<group>"; };
+		3E57185824409AB500CB0C76 /* lightShader.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = lightShader.vs; sourceTree = "<group>"; };
 		81C8051324401C1C00A7F5E3 /* OpenGLLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C8051C24401C1D00A7F5E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81C8051F24401C1D00A7F5E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -397,8 +399,6 @@
 		81C806AE24401C4C00A7F5E3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		81C806B124401E5E00A7F5E3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		81C806BC24402F5300A7F5E3 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
-		81C806BE2440417F00A7F5E3 /* lightShader.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = lightShader.vs; sourceTree = "<group>"; };
-		81C806C0244041A900A7F5E3 /* lightShader.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = lightShader.frag; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -515,8 +515,8 @@
 			children = (
 				81C8053A24401C3D00A7F5E3 /* shader.vs */,
 				81C8053C24401C3D00A7F5E3 /* shader.frag */,
-				81C806BE2440417F00A7F5E3 /* lightShader.vs */,
-				81C806C0244041A900A7F5E3 /* lightShader.frag */,
+				3E57185724409AB500CB0C76 /* lightShader.frag */,
+				3E57185824409AB500CB0C76 /* lightShader.vs */,
 				81C8053B24401C3D00A7F5E3 /* Shader.cpp */,
 			);
 			path = Shader;
@@ -891,6 +891,7 @@
 				81C8066D24401C3E00A7F5E3 /* ulp.inl in Resources */,
 				81C8066524401C3E00A7F5E3 /* type_mat3x2.inl in Resources */,
 				81C8067724401C3E00A7F5E3 /* extend.inl in Resources */,
+				3E57185924409AB500CB0C76 /* lightShader.frag in Resources */,
 				81C8068624401C3E00A7F5E3 /* fast_trigonometry.inl in Resources */,
 				81C806A824401C3E00A7F5E3 /* polar_coordinates.inl in Resources */,
 				81C8065324401C3E00A7F5E3 /* type_mat4x3.inl in Resources */,
@@ -952,6 +953,7 @@
 				81C8066724401C3E00A7F5E3 /* type_mat3x3.inl in Resources */,
 				81C8064E24401C3E00A7F5E3 /* type_vec.inl in Resources */,
 				81C8067224401C3E00A7F5E3 /* random.inl in Resources */,
+				3E57185A24409AB500CB0C76 /* lightShader.vs in Resources */,
 				81C8067324401C3E00A7F5E3 /* constants.inl in Resources */,
 				81C8066B24401C3E00A7F5E3 /* matrix_transform.inl in Resources */,
 				81C8065F24401C3E00A7F5E3 /* type_gentype.inl in Resources */,
@@ -995,8 +997,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81C806C1244041A900A7F5E3 /* lightShader.frag in Sources */,
-				81C806BF2440417F00A7F5E3 /* lightShader.vs in Sources */,
 				81C8065E24401C3E00A7F5E3 /* glm.cpp in Sources */,
 				81C8065624401C3E00A7F5E3 /* dummy.cpp in Sources */,
 				81C806BD24402F5300A7F5E3 /* Camera.cpp in Sources */,
