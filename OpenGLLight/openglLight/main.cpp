@@ -198,6 +198,17 @@ int main(int argc,char *argv[]) {
         glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
         glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
         glUniform3f(lightColorLoc,  1.0f, 0.5f, 1.0f);
+        
+        // 设置材质属性
+        GLint matAmbientLoc = glGetUniformLocation(ourShader.Program, "material.ambient");
+        GLint matDiffuseLoc = glGetUniformLocation(ourShader.Program, "material.diffuse");
+        GLint matSpecularLoc = glGetUniformLocation(ourShader.Program, "material.specular");
+        GLint matShineLoc = glGetUniformLocation(ourShader.Program, "material.shininess");
+
+        glUniform3f(matAmbientLoc, 1.0f, 0.5f, 0.31f);
+        glUniform3f(matDiffuseLoc, 1.0f, 0.5f, 0.31f);
+        glUniform3f(matSpecularLoc, 0.5f, 0.5f, 0.5f);
+        glUniform1f(matShineLoc, 32.0f);
 
         glm::mat4 view;
         view = camera.GetViewMatrix();
