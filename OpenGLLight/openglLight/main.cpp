@@ -209,6 +209,15 @@ int main(int argc,char *argv[]) {
         glUniform3f(matDiffuseLoc, 1.0f, 0.5f, 0.31f);
         glUniform3f(matSpecularLoc, 0.5f, 0.5f, 0.5f);
         glUniform1f(matShineLoc, 32.0f);
+        
+        // 设置每个光的亮度
+        GLint lightAmbientLoc = glGetUniformLocation(ourShader.Program, "light.ambient");
+        GLint lightDiffuseLoc = glGetUniformLocation(ourShader.Program, "light.diffuse");
+        GLint lightSpecularLoc = glGetUniformLocation(ourShader.Program, "light.specular");
+
+        glUniform3f(lightAmbientLoc, 0.2f, 0.2f, 0.2f);
+        glUniform3f(lightDiffuseLoc, 0.5f, 0.5f, 0.5f);// 让我们把这个光调暗一点，这样会看起来更自然
+        glUniform3f(lightSpecularLoc, 1.0f, 1.0f, 1.0f);
 
         glm::mat4 view;
         view = camera.GetViewMatrix();
