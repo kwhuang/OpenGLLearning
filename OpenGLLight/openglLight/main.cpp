@@ -192,6 +192,8 @@ int main(int argc,char *argv[]) {
         GLint lightPosLoc = glGetUniformLocation(ourShader.Program, "lightPos");
         // 观察者（摄像机）位置
         GLint viewPosLoc = glGetUniformLocation(ourShader.Program, "viewPos");
+        lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
+        lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
         glUniform3f(viewPosLoc, camera.Position.x, camera.Position.y, camera.Position.z);
         glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
         glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
