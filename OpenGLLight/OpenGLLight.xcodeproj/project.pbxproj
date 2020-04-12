@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		3E57185924409AB500CB0C76 /* lightShader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 3E57185724409AB500CB0C76 /* lightShader.frag */; };
 		3E57185A24409AB500CB0C76 /* lightShader.vs in Resources */ = {isa = PBXBuildFile; fileRef = 3E57185824409AB500CB0C76 /* lightShader.vs */; };
+		3E6BF3482443426E008DD346 /* libSOIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E6BF3392443426E008DD346 /* libSOIL.a */; };
+		3E6BF3492443426E008DD346 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E6BF33B2443426E008DD346 /* image_helper.c */; };
+		3E6BF34A2443426E008DD346 /* image_DXT.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E6BF33F2443426E008DD346 /* image_DXT.c */; };
+		3E6BF34D2443426E008DD346 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E6BF3442443426E008DD346 /* SOIL.c */; };
+		3E6BF34E2443426E008DD346 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E6BF3452443426E008DD346 /* stb_image_aug.c */; };
 		81C8051D24401C1D00A7F5E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C8051C24401C1D00A7F5E3 /* Assets.xcassets */; };
 		81C8052024401C1D00A7F5E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81C8051E24401C1D00A7F5E3 /* Main.storyboard */; };
 		81C8063D24401C3E00A7F5E3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C8053024401C3D00A7F5E3 /* libGLEW.a */; };
@@ -130,6 +135,17 @@
 /* Begin PBXFileReference section */
 		3E57185724409AB500CB0C76 /* lightShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = lightShader.frag; sourceTree = "<group>"; };
 		3E57185824409AB500CB0C76 /* lightShader.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = lightShader.vs; sourceTree = "<group>"; };
+		3E6BF3392443426E008DD346 /* libSOIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSOIL.a; sourceTree = "<group>"; };
+		3E6BF33B2443426E008DD346 /* image_helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_helper.c; sourceTree = "<group>"; };
+		3E6BF33C2443426E008DD346 /* stb_image_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_aug.h; sourceTree = "<group>"; };
+		3E6BF33D2443426E008DD346 /* SOIL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOIL.h; sourceTree = "<group>"; };
+		3E6BF33E2443426E008DD346 /* stbi_DDS_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug.h; sourceTree = "<group>"; };
+		3E6BF33F2443426E008DD346 /* image_DXT.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_DXT.c; sourceTree = "<group>"; };
+		3E6BF3432443426E008DD346 /* stbi_DDS_aug_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug_c.h; sourceTree = "<group>"; };
+		3E6BF3442443426E008DD346 /* SOIL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SOIL.c; sourceTree = "<group>"; };
+		3E6BF3452443426E008DD346 /* stb_image_aug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_aug.c; sourceTree = "<group>"; };
+		3E6BF3462443426E008DD346 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_helper.h; sourceTree = "<group>"; };
+		3E6BF3472443426E008DD346 /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_DXT.h; sourceTree = "<group>"; };
 		81C8051324401C1C00A7F5E3 /* OpenGLLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C8051C24401C1D00A7F5E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81C8051F24401C1D00A7F5E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -408,6 +424,7 @@
 			files = (
 				81C806B224401E5E00A7F5E3 /* OpenGL.framework in Frameworks */,
 				81C8063D24401C3E00A7F5E3 /* libGLEW.a in Frameworks */,
+				3E6BF3482443426E008DD346 /* libSOIL.a in Frameworks */,
 				81C8063F24401C3E00A7F5E3 /* libglfw.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +432,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E6BF3382443426E008DD346 /* SOIL */ = {
+			isa = PBXGroup;
+			children = (
+				3E6BF3392443426E008DD346 /* libSOIL.a */,
+				3E6BF33A2443426E008DD346 /* src */,
+			);
+			path = SOIL;
+			sourceTree = "<group>";
+		};
+		3E6BF33A2443426E008DD346 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				3E6BF33B2443426E008DD346 /* image_helper.c */,
+				3E6BF33C2443426E008DD346 /* stb_image_aug.h */,
+				3E6BF33D2443426E008DD346 /* SOIL.h */,
+				3E6BF33E2443426E008DD346 /* stbi_DDS_aug.h */,
+				3E6BF33F2443426E008DD346 /* image_DXT.c */,
+				3E6BF3432443426E008DD346 /* stbi_DDS_aug_c.h */,
+				3E6BF3442443426E008DD346 /* SOIL.c */,
+				3E6BF3452443426E008DD346 /* stb_image_aug.c */,
+				3E6BF3462443426E008DD346 /* image_helper.h */,
+				3E6BF3472443426E008DD346 /* image_DXT.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		81C8050A24401C1C00A7F5E3 = {
 			isa = PBXGroup;
 			children = (
@@ -435,6 +478,7 @@
 		81C8051524401C1C00A7F5E3 /* OpenGLLight */ = {
 			isa = PBXGroup;
 			children = (
+				3E6BF3382443426E008DD346 /* SOIL */,
 				81C806BB24402F5300A7F5E3 /* Camera */,
 				81C8052A24401C3D00A7F5E3 /* GLEW */,
 				81C8053124401C3D00A7F5E3 /* GLFW */,
@@ -997,9 +1041,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E6BF34D2443426E008DD346 /* SOIL.c in Sources */,
 				81C8065E24401C3E00A7F5E3 /* glm.cpp in Sources */,
 				81C8065624401C3E00A7F5E3 /* dummy.cpp in Sources */,
 				81C806BD24402F5300A7F5E3 /* Camera.cpp in Sources */,
+				3E6BF34E2443426E008DD346 /* stb_image_aug.c in Sources */,
+				3E6BF3492443426E008DD346 /* image_helper.c in Sources */,
+				3E6BF34A2443426E008DD346 /* image_DXT.c in Sources */,
 				81C806AF24401C4C00A7F5E3 /* main.cpp in Sources */,
 				81C8064124401C3E00A7F5E3 /* Shader.cpp in Sources */,
 			);
@@ -1146,6 +1194,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenGLLight/GLEW",
 					"$(PROJECT_DIR)/OpenGLLight/GLFW/lib-macos",
+					"$(PROJECT_DIR)/OpenGLLight/SOIL",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "hq-kven.OpenGLLight";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1170,6 +1219,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OpenGLLight/GLEW",
 					"$(PROJECT_DIR)/OpenGLLight/GLFW/lib-macos",
+					"$(PROJECT_DIR)/OpenGLLight/SOIL",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "hq-kven.OpenGLLight";
 				PRODUCT_NAME = "$(TARGET_NAME)";
