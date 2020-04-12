@@ -14,6 +14,7 @@
 		3E6BF34A2443426E008DD346 /* image_DXT.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E6BF33F2443426E008DD346 /* image_DXT.c */; };
 		3E6BF34D2443426E008DD346 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E6BF3442443426E008DD346 /* SOIL.c */; };
 		3E6BF34E2443426E008DD346 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E6BF3452443426E008DD346 /* stb_image_aug.c */; };
+		3E6BF35124434361008DD346 /* container2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E6BF35024434361008DD346 /* container2.png */; };
 		81C8051D24401C1D00A7F5E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C8051C24401C1D00A7F5E3 /* Assets.xcassets */; };
 		81C8052024401C1D00A7F5E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81C8051E24401C1D00A7F5E3 /* Main.storyboard */; };
 		81C8063D24401C3E00A7F5E3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C8053024401C3D00A7F5E3 /* libGLEW.a */; };
@@ -146,6 +147,7 @@
 		3E6BF3452443426E008DD346 /* stb_image_aug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_aug.c; sourceTree = "<group>"; };
 		3E6BF3462443426E008DD346 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_helper.h; sourceTree = "<group>"; };
 		3E6BF3472443426E008DD346 /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_DXT.h; sourceTree = "<group>"; };
+		3E6BF35024434361008DD346 /* container2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = container2.png; sourceTree = "<group>"; };
 		81C8051324401C1C00A7F5E3 /* OpenGLLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C8051C24401C1D00A7F5E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81C8051F24401C1D00A7F5E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -458,6 +460,14 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		3E6BF34F24434361008DD346 /* Resourse */ = {
+			isa = PBXGroup;
+			children = (
+				3E6BF35024434361008DD346 /* container2.png */,
+			);
+			path = Resourse;
+			sourceTree = "<group>";
+		};
 		81C8050A24401C1C00A7F5E3 = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +488,7 @@
 		81C8051524401C1C00A7F5E3 /* OpenGLLight */ = {
 			isa = PBXGroup;
 			children = (
+				3E6BF34F24434361008DD346 /* Resourse */,
 				3E6BF3382443426E008DD346 /* SOIL */,
 				81C806BB24402F5300A7F5E3 /* Camera */,
 				81C8052A24401C3D00A7F5E3 /* GLEW */,
@@ -957,6 +968,7 @@
 				81C8065124401C3E00A7F5E3 /* type_mat2x4.inl in Resources */,
 				81C8064C24401C3E00A7F5E3 /* intrinsic_vector_relational.inl in Resources */,
 				81C8065A24401C3E00A7F5E3 /* intrinsic_trigonometric.inl in Resources */,
+				3E6BF35124434361008DD346 /* container2.png in Resources */,
 				81C8064F24401C3E00A7F5E3 /* func_common.inl in Resources */,
 				81C8069224401C3E00A7F5E3 /* matrix_interpolation.inl in Resources */,
 				81C8065924401C3E00A7F5E3 /* type_mat4x4.inl in Resources */,

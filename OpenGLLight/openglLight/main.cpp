@@ -23,6 +23,9 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
+// SOIL
+#include "SOIL.h"
+
 const GLuint WIDTH = 800, HEIGHT = 600;
 
 // 申明键盘输入回调
@@ -104,69 +107,92 @@ int main(int argc,char *argv[]) {
     
     // 正方形顶点
     float vertices[] = {
-        // 顶点                // 法向量
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        // 顶点                // 法向量             // 纹理坐标
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
     };
     
+    // 正方体
     GLuint VBO,VAO;
     glGenVertexArrays(1,&VAO);
     glGenBuffers(1,&VBO);
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER,VBO);
     glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(2);
     glBindVertexArray(0);
     
+    // 光源
     GLuint lightVAO;
     glGenVertexArrays(1, &lightVAO);
     glBindVertexArray(lightVAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
     glBindVertexArray(0);
+    
+    // 纹理
+    GLuint diffuseMap;
+    glGenTextures(1, &diffuseMap);
+    glBindTexture(GL_TEXTURE_2D, diffuseMap);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    int texWidth,texHeight;
+    unsigned char* image2 = SOIL_load_image("container2.png", &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image2);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    SOIL_free_image_data(image2);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
+    // 设置纹理属性
+//    ourShader.Use();
+//    glUniform1i(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 0);
     
     
     // 开启循环绘制
@@ -184,52 +210,20 @@ int main(int argc,char *argv[]) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         ourShader.Use();
-        // 物体颜色
-        GLint objectColorLoc = glGetUniformLocation(ourShader.Program, "objectColor");
-        // 光源颜色
-        GLint lightColorLoc  = glGetUniformLocation(ourShader.Program, "lightColor");
-        // 光源位置
-        GLint lightPosLoc = glGetUniformLocation(ourShader.Program, "lightPos");
-        // 观察者（摄像机）位置
-        GLint viewPosLoc = glGetUniformLocation(ourShader.Program, "viewPos");
-        lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
-        lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
-        glUniform3f(viewPosLoc, camera.Position.x, camera.Position.y, camera.Position.z);
-        glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
-        glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
-        glUniform3f(lightColorLoc,  1.0f, 0.5f, 1.0f);
         
-        // 设置材质属性
-        GLint matAmbientLoc = glGetUniformLocation(ourShader.Program, "material.ambient");
-        GLint matDiffuseLoc = glGetUniformLocation(ourShader.Program, "material.diffuse");
-        GLint matSpecularLoc = glGetUniformLocation(ourShader.Program, "material.specular");
-        GLint matShineLoc = glGetUniformLocation(ourShader.Program, "material.shininess");
+        // 设置摄像机、光源位置
+        glUniform3f(glGetUniformLocation(ourShader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+        glUniform3f(glGetUniformLocation(ourShader.Program, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
-        glUniform3f(matAmbientLoc, 1.0f, 0.5f, 0.31f);
-        glUniform3f(matDiffuseLoc, 1.0f, 0.5f, 0.31f);
-        glUniform3f(matSpecularLoc, 0.5f, 0.5f, 0.5f);
-        glUniform1f(matShineLoc, 32.0f);
+        // 设置材质属性
+        glUniform1i(glGetUniformLocation(ourShader.Program, "material.diffuse"), 0);
+        glUniform3f(glGetUniformLocation(ourShader.Program, "material.specular"), 0.5f, 0.5f, 0.5f);
+        glUniform1f(glGetUniformLocation(ourShader.Program, "material.shininess"), 64.0f);
         
         // 设置每个光的亮度
-        GLint lightAmbientLoc = glGetUniformLocation(ourShader.Program, "light.ambient");
-        GLint lightDiffuseLoc = glGetUniformLocation(ourShader.Program, "light.diffuse");
-        GLint lightSpecularLoc = glGetUniformLocation(ourShader.Program, "light.specular");
-
-        glUniform3f(lightAmbientLoc, 0.2f, 0.2f, 0.2f);
-        glUniform3f(lightDiffuseLoc, 0.5f, 0.5f, 0.5f);// 让我们把这个光调暗一点，这样会看起来更自然
-        glUniform3f(lightSpecularLoc, 1.0f, 1.0f, 1.0f);
-        
-        // 根据时间不同改变不同光源的颜色
-        glm::vec3 lightColor;
-        lightColor.x = sin(glfwGetTime() * 2.0f);
-        lightColor.y = sin(glfwGetTime() * 0.7f);
-        lightColor.z = sin(glfwGetTime() * 1.3f);
-
-        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-
-        glUniform3f(lightAmbientLoc, ambientColor.x, ambientColor.y, ambientColor.z);
-        glUniform3f(lightDiffuseLoc, diffuseColor.x, diffuseColor.y, diffuseColor.z);
+        glUniform3f(glGetUniformLocation(ourShader.Program, "light.ambient"), 0.2f, 0.2f, 0.2f);
+        glUniform3f(glGetUniformLocation(ourShader.Program, "light.diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(ourShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
 
         glm::mat4 view;
         view = camera.GetViewMatrix();
@@ -241,6 +235,10 @@ int main(int argc,char *argv[]) {
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
         glBindVertexArray(VAO);
+        
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, diffuseMap);
+        
         glm::mat4 model;
         model = glm::rotate(model, glm::radians(20.f), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
