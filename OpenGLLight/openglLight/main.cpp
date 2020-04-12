@@ -46,7 +46,7 @@ GLfloat lastY  =  HEIGHT / 2.0;
 bool    keys[1024];
 
 // 光源位置
-glm::vec3 lightPos(1.2f, 1.0f, 1.0f);
+glm::vec3 lightPos(1.2f, 0.5f, 1.0f);
 
 // 每一帧绘制事件
 GLfloat deltaTime = 0.0f;   
@@ -175,24 +175,35 @@ int main(int argc,char *argv[]) {
     glEnableVertexAttribArray(0);
     glBindVertexArray(0);
     
-    // 纹理
+    // 漫反射贴图
     GLuint diffuseMap;
     glGenTextures(1, &diffuseMap);
     glBindTexture(GL_TEXTURE_2D, diffuseMap);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
     int texWidth,texHeight;
-    unsigned char* image2 = SOIL_load_image("container2.png", &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
+    unsigned char* image = SOIL_load_image("container2.png", &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    SOIL_free_image_data(image);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
+    // 镜面贴图
+    GLuint specularMap;
+    glGenTextures(1, &specularMap);
+    glBindTexture(GL_TEXTURE_2D, specularMap);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    unsigned char* image2 = SOIL_load_image("container2_specular.png", &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image2);
     glGenerateMipmap(GL_TEXTURE_2D);
     SOIL_free_image_data(image2);
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    // 设置纹理属性
-//    ourShader.Use();
-//    glUniform1i(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 0);
     
     
     // 开启循环绘制
@@ -217,7 +228,7 @@ int main(int argc,char *argv[]) {
 
         // 设置材质属性
         glUniform1i(glGetUniformLocation(ourShader.Program, "material.diffuse"), 0);
-        glUniform3f(glGetUniformLocation(ourShader.Program, "material.specular"), 0.5f, 0.5f, 0.5f);
+        glUniform1i(glGetUniformLocation(ourShader.Program, "material.specular"), 1);
         glUniform1f(glGetUniformLocation(ourShader.Program, "material.shininess"), 64.0f);
         
         // 设置每个光的亮度
@@ -238,6 +249,8 @@ int main(int argc,char *argv[]) {
         
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, specularMap);
         
         glm::mat4 model;
         model = glm::rotate(model, glm::radians(20.f), glm::vec3(0.0f, 1.0f, 0.0f));

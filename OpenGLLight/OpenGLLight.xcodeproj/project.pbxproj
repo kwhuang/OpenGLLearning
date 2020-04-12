@@ -15,6 +15,7 @@
 		3E6BF34D2443426E008DD346 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E6BF3442443426E008DD346 /* SOIL.c */; };
 		3E6BF34E2443426E008DD346 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E6BF3452443426E008DD346 /* stb_image_aug.c */; };
 		3E6BF35124434361008DD346 /* container2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E6BF35024434361008DD346 /* container2.png */; };
+		3E6BF35324434DC6008DD346 /* container2_specular.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E6BF35224434DC6008DD346 /* container2_specular.png */; };
 		81C8051D24401C1D00A7F5E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C8051C24401C1D00A7F5E3 /* Assets.xcassets */; };
 		81C8052024401C1D00A7F5E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81C8051E24401C1D00A7F5E3 /* Main.storyboard */; };
 		81C8063D24401C3E00A7F5E3 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C8053024401C3D00A7F5E3 /* libGLEW.a */; };
@@ -148,6 +149,7 @@
 		3E6BF3462443426E008DD346 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_helper.h; sourceTree = "<group>"; };
 		3E6BF3472443426E008DD346 /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_DXT.h; sourceTree = "<group>"; };
 		3E6BF35024434361008DD346 /* container2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = container2.png; sourceTree = "<group>"; };
+		3E6BF35224434DC6008DD346 /* container2_specular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = container2_specular.png; sourceTree = "<group>"; };
 		81C8051324401C1C00A7F5E3 /* OpenGLLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C8051C24401C1D00A7F5E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81C8051F24401C1D00A7F5E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 			isa = PBXGroup;
 			children = (
 				3E6BF35024434361008DD346 /* container2.png */,
+				3E6BF35224434DC6008DD346 /* container2_specular.png */,
 			);
 			path = Resourse;
 			sourceTree = "<group>";
@@ -1041,6 +1044,7 @@
 				81C8065D24401C3E00A7F5E3 /* type_vec2.inl in Resources */,
 				81C8067924401C3E00A7F5E3 /* matrix_transform_2d.inl in Resources */,
 				81C806A524401C3E00A7F5E3 /* fast_exponential.inl in Resources */,
+				3E6BF35324434DC6008DD346 /* container2_specular.png in Resources */,
 				81C8067624401C3E00A7F5E3 /* matrix_query.inl in Resources */,
 				81C8069324401C3E00A7F5E3 /* vector_query.inl in Resources */,
 			);
