@@ -246,19 +246,22 @@ int main(int argc,char *argv[]) {
         ourShader.setFloat("material.shininess", 32.f);
         
         // 设置衰减值
-        glm::vec3 ambient(0.2f, 0.2f, 0.2f);
-        ourShader.setVec3("light.ambient", ambient);
         ourShader.setFloat("light.constant",  1.0f);
         ourShader.setFloat("light.linear",    0.09f);
         ourShader.setFloat("light.quadratic", 0.032f);
         
         // 设置每个光的亮度
-        glm::vec3 direction(-0.2f, -1.0f, -0.3f);
-        ourShader.setVec3("light.direction", direction);
-        glm::vec3 diffuse(0.5f, 0.5f, 0.5f);
+        glm::vec3 ambient(0.1f, 0.1f, 0.1f);
+        ourShader.setVec3("light.ambient", ambient);
+        glm::vec3 diffuse(0.8f, 0.8f, 0.8f);
         ourShader.setVec3("light.diffuse", diffuse);
         glm::vec3 specular(1.0f, 1.0f, 1.0f);
         ourShader.setVec3("light.specular", specular);
+        // 聚光（手电筒）
+        ourShader.setVec3("light.position",  camera.Position);
+        ourShader.setVec3("light.direction", camera.Front);
+        // 一个0度的角度表示的是1.0的余弦值，而一个90度的角度表示的是0.0的余弦值,所以在判断关切角时需要使用大于号来判断是否小于光切角
+        ourShader.setFloat("light.cutOff",   glm::cos(glm::radians(12.5f)));
         
         // 设置转换矩阵
         glm::mat4 view;
@@ -277,7 +280,7 @@ int main(int argc,char *argv[]) {
         // 多个正方体
         for(unsigned int i = 0; i < 10; i++)
         {
-            glm::mat4 model;
+            glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
             float angle = 20.0f * i;
             model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
@@ -287,6 +290,10 @@ int main(int argc,char *argv[]) {
 
         glfwSwapBuffers(window);
     }
+    
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteVertexArrays(1, &lightVAO);
+    glDeleteBuffers(1, &VBO);
     
     // 释放资源
     glfwTerminate();
