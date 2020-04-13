@@ -237,16 +237,20 @@ int main(int argc,char *argv[]) {
 
         ourShader.Use();
         
-        // 设置摄像机、光源位置
-        glm::vec3 viewPos(camera.Position.x, camera.Position.y, camera.Position.z);
-        ourShader.setVec3("viewPos", viewPos);
-        glm::vec3 lightSourcePos(lightPos.x, lightPos.y, lightPos.z);
-        ourShader.setVec3("lightPos", lightSourcePos);
+        // 设置我们观察（摄像机）的位置
+        ourShader.setVec3("viewPos", camera.Position);
         
         // 设置材质属性
         ourShader.setInt("material.diffuse", 0);
         ourShader.setInt("material.specular", 1);
         ourShader.setFloat("material.shininess", 32.f);
+        
+        // 设置衰减值
+        glm::vec3 ambient(0.2f, 0.2f, 0.2f);
+        ourShader.setVec3("light.ambient", ambient);
+        ourShader.setFloat("light.constant",  1.0f);
+        ourShader.setFloat("light.linear",    0.09f);
+        ourShader.setFloat("light.quadratic", 0.032f);
         
         // 设置每个光的亮度
         glm::vec3 direction(-0.2f, -1.0f, -0.3f);
@@ -256,7 +260,6 @@ int main(int argc,char *argv[]) {
         glm::vec3 specular(1.0f, 1.0f, 1.0f);
         ourShader.setVec3("light.specular", specular);
         
-
         // 设置转换矩阵
         glm::mat4 view;
         view = camera.GetViewMatrix();
@@ -265,7 +268,6 @@ int main(int argc,char *argv[]) {
         ourShader.setMat4("projection", projection);
 
         glBindVertexArray(VAO);
-        
         // 激活、绑定纹理
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
