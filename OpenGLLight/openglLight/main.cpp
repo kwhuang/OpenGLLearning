@@ -223,30 +223,34 @@ int main(int argc,char *argv[]) {
         ourShader.Use();
         
         // 设置摄像机、光源位置
-        glUniform3f(glGetUniformLocation(ourShader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-        glUniform3f(glGetUniformLocation(ourShader.Program, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-
+        glm::vec3 viewPos(camera.Position.x, camera.Position.y, camera.Position.z);
+        ourShader.setVec3("viewPos", viewPos);
+        glm::vec3 lightSourcePos(lightPos.x, lightPos.y, lightPos.z);
+        ourShader.setVec3("lightPos", lightSourcePos);
+        
         // 设置材质属性
-        glUniform1i(glGetUniformLocation(ourShader.Program, "material.diffuse"), 0);
-        glUniform1i(glGetUniformLocation(ourShader.Program, "material.specular"), 1);
-        glUniform1f(glGetUniformLocation(ourShader.Program, "material.shininess"), 64.0f);
+        ourShader.setInt("material.diffuse", 0);
+        ourShader.setInt("material.specular", 1);
+        ourShader.setFloat("material.shininess", 64.f);
         
         // 设置每个光的亮度
-        glUniform3f(glGetUniformLocation(ourShader.Program, "light.ambient"), 0.2f, 0.2f, 0.2f);
-        glUniform3f(glGetUniformLocation(ourShader.Program, "light.diffuse"), 0.5f, 0.5f, 0.5f);
-        glUniform3f(glGetUniformLocation(ourShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
+        glm::vec3 ambient(0.2f, 0.2f, 0.2f);
+        ourShader.setVec3("light.ambient", ambient);
+        glm::vec3 diffuse(0.5f, 0.5f, 0.5f);
+        ourShader.setVec3("light.diffuse", diffuse);
+        glm::vec3 specular(1.0f, 1.0f, 1.0f);
+        ourShader.setVec3("light.specular", specular);
 
+        // 设置转换矩阵
         glm::mat4 view;
         view = camera.GetViewMatrix();
+        ourShader.setMat4("view", view);
         glm::mat4 projection = glm::perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-        GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
-        GLint viewLoc  = glGetUniformLocation(ourShader.Program,  "view");
-        GLint projLoc  = glGetUniformLocation(ourShader.Program,  "projection");
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+        ourShader.setMat4("projection", projection);
 
         glBindVertexArray(VAO);
         
+        // 激活、绑定纹理
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
         glActiveTexture(GL_TEXTURE1);
@@ -254,20 +258,18 @@ int main(int argc,char *argv[]) {
         
         glm::mat4 model;
         model = glm::rotate(model, glm::radians(20.f), glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        ourShader.setMat4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
 
+        // 激活光源着色器程序
         lightShader.Use();
-        modelLoc = glGetUniformLocation(lightShader.Program, "model");
-        viewLoc  = glGetUniformLocation(lightShader.Program, "view");
-        projLoc  = glGetUniformLocation(lightShader.Program, "projection");
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
         model = glm::mat4();
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f));
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        lightShader.setMat4("model", model);
+        lightShader.setMat4("view", view);
+        lightShader.setMat4("projection", projection);
         
         glBindVertexArray(lightVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
