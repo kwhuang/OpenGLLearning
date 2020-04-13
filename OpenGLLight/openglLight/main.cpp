@@ -60,8 +60,9 @@ int main(int argc,char *argv[]) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     // 窗口尺寸不可变
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    // mac配置需要这一行
+#ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
     // 创建窗口
     GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
     
@@ -151,6 +152,20 @@ int main(int argc,char *argv[]) {
         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
     };
     
+    // 正方体世界空间位置
+    glm::vec3 cubePositions[] = {
+      glm::vec3( 0.0f,  0.0f,  0.0f),
+      glm::vec3( 2.0f,  5.0f, -15.0f),
+      glm::vec3(-1.5f, -2.2f, -2.5f),
+      glm::vec3(-3.8f, -2.0f, -12.3f),
+      glm::vec3( 2.4f, -0.4f, -3.5f),
+      glm::vec3(-1.7f,  3.0f, -7.5f),
+      glm::vec3( 1.3f, -2.0f, -2.5f),
+      glm::vec3( 1.5f,  2.0f, -2.5f),
+      glm::vec3( 1.5f,  0.2f, -1.5f),
+      glm::vec3(-1.3f,  1.0f, -1.5f)
+    };
+    
     // 正方体
     GLuint VBO,VAO;
     glGenVertexArrays(1,&VAO);
@@ -231,15 +246,16 @@ int main(int argc,char *argv[]) {
         // 设置材质属性
         ourShader.setInt("material.diffuse", 0);
         ourShader.setInt("material.specular", 1);
-        ourShader.setFloat("material.shininess", 64.f);
+        ourShader.setFloat("material.shininess", 32.f);
         
         // 设置每个光的亮度
-        glm::vec3 ambient(0.2f, 0.2f, 0.2f);
-        ourShader.setVec3("light.ambient", ambient);
+        glm::vec3 direction(-0.2f, -1.0f, -0.3f);
+        ourShader.setVec3("light.direction", direction);
         glm::vec3 diffuse(0.5f, 0.5f, 0.5f);
         ourShader.setVec3("light.diffuse", diffuse);
         glm::vec3 specular(1.0f, 1.0f, 1.0f);
         ourShader.setVec3("light.specular", specular);
+        
 
         // 设置转换矩阵
         glm::mat4 view;
@@ -256,24 +272,16 @@ int main(int argc,char *argv[]) {
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, specularMap);
         
-        glm::mat4 model;
-        model = glm::rotate(model, glm::radians(20.f), glm::vec3(0.0f, 1.0f, 0.0f));
-        ourShader.setMat4("model", model);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
-
-        // 激活光源着色器程序
-        lightShader.Use();
-        model = glm::mat4();
-        model = glm::translate(model, lightPos);
-        model = glm::scale(model, glm::vec3(0.2f));
-        lightShader.setMat4("model", model);
-        lightShader.setMat4("view", view);
-        lightShader.setMat4("projection", projection);
-        
-        glBindVertexArray(lightVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
+        // 多个正方体
+        for(unsigned int i = 0; i < 10; i++)
+        {
+            glm::mat4 model;
+            model = glm::translate(model, cubePositions[i]);
+            float angle = 20.0f * i;
+            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+            ourShader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
         glfwSwapBuffers(window);
     }
