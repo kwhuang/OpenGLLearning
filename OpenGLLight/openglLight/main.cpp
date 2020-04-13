@@ -262,6 +262,7 @@ int main(int argc,char *argv[]) {
         ourShader.setVec3("light.direction", camera.Front);
         // 一个0度的角度表示的是1.0的余弦值，而一个90度的角度表示的是0.0的余弦值,所以在判断关切角时需要使用大于号来判断是否小于光切角
         ourShader.setFloat("light.cutOff",   glm::cos(glm::radians(12.5f)));
+        ourShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
         
         // 设置转换矩阵
         glm::mat4 view;
