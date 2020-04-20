@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		045ED514244D3E2000EFBB8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 045ED513244D3E2000EFBB8E /* Assets.xcassets */; };
-		045ED517244D3E2000EFBB8E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045ED515244D3E2000EFBB8E /* MainMenu.xib */; };
 		045ED665244D3EAA00EFBB8E /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 045ED546244D3EA900EFBB8E /* CMakeLists.txt */; };
 		045ED666244D3EAA00EFBB8E /* func_noise.inl in Resources */ = {isa = PBXBuildFile; fileRef = 045ED555244D3EA900EFBB8E /* func_noise.inl */; };
 		045ED667244D3EAA00EFBB8E /* func_exponential.inl in Resources */ = {isa = PBXBuildFile; fileRef = 045ED558244D3EA900EFBB8E /* func_exponential.inl */; };
@@ -168,12 +167,12 @@
 		045ED81C244D841500EFBB8E /* SmoothingGroups.inl in Resources */ = {isa = PBXBuildFile; fileRef = 045ED80E244D841500EFBB8E /* SmoothingGroups.inl */; };
 		045ED81D244D841500EFBB8E /* libassimp.5.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED813244D841500EFBB8E /* libassimp.5.0.0.dylib */; };
 		045ED835244D92E600EFBB8E /* stb_vorbis.c in Sources */ = {isa = PBXBuildFile; fileRef = 045ED825244D92E400EFBB8E /* stb_vorbis.c */; };
+		3EE7F6AF244DCF70008E06C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7F6AD244DCF70008E06C0 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		045ED50D244D3E1E00EFBB8E /* OpenGLAssimp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLAssimp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		045ED513244D3E2000EFBB8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		045ED516244D3E2000EFBB8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		045ED518244D3E2000EFBB8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		045ED51B244D3E2000EFBB8E /* OpenGLAssimp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenGLAssimp.entitlements; sourceTree = "<group>"; };
 		045ED53E244D3EA900EFBB8E /* vec4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vec4.hpp; sourceTree = "<group>"; };
@@ -583,6 +582,7 @@
 		045ED833244D92E500EFBB8E /* stb_dxt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_dxt.h; sourceTree = "<group>"; };
 		045ED834244D92E600EFBB8E /* stb_ds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_ds.h; sourceTree = "<group>"; };
 		045ED84D244DA64900EFBB8E /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		3EE7F6AE244DCF70008E06C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../OpenGLLight/OpenGLLight/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -634,7 +634,7 @@
 				045ED53D244D3EA900EFBB8E /* glm */,
 				045ED65E244D3EAA00EFBB8E /* Resources */,
 				045ED513244D3E2000EFBB8E /* Assets.xcassets */,
-				045ED515244D3E2000EFBB8E /* MainMenu.xib */,
+				3EE7F6AD244DCF70008E06C0 /* Main.storyboard */,
 				045ED518244D3E2000EFBB8E /* Info.plist */,
 				045ED745244D53BB00EFBB8E /* Mesh.cpp */,
 				045ED84D244DA64900EFBB8E /* Model.h */,
@@ -1388,7 +1388,6 @@
 				045ED696244D3EAA00EFBB8E /* type_ptr.inl in Resources */,
 				045ED68B244D3EAA00EFBB8E /* quaternion.inl in Resources */,
 				045ED67E244D3EAA00EFBB8E /* intrinsic_integer.inl in Resources */,
-				045ED517244D3E2000EFBB8E /* MainMenu.xib in Resources */,
 				045ED699244D3EAA00EFBB8E /* extend.inl in Resources */,
 				045ED6A7244D3EAA00EFBB8E /* io.inl in Resources */,
 				045ED698244D3EAA00EFBB8E /* matrix_query.inl in Resources */,
@@ -1406,6 +1405,7 @@
 				045ED6B0244D3EAA00EFBB8E /* simd_vec4.inl in Resources */,
 				045ED6AD244D3EAA00EFBB8E /* dual_quaternion.inl in Resources */,
 				045ED69D244D3EAA00EFBB8E /* gradient_paint.inl in Resources */,
+				3EE7F6AF244DCF70008E06C0 /* Main.storyboard in Resources */,
 				045ED688244D3EAA00EFBB8E /* precision.inl in Resources */,
 				045ED718244D406C00EFBB8E /* hand_dif.png in Resources */,
 				045ED719244D406C00EFBB8E /* planet_Quom1200.png in Resources */,
@@ -1464,12 +1464,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		045ED515244D3E2000EFBB8E /* MainMenu.xib */ = {
+		3EE7F6AD244DCF70008E06C0 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				045ED516244D3E2000EFBB8E /* Base */,
+				3EE7F6AE244DCF70008E06C0 /* Base */,
 			);
-			name = MainMenu.xib;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
