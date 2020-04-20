@@ -155,14 +155,14 @@
 		045ED71D244D406C00EFBB8E /* Rock-Texture-Surface.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045ED702244D406C00EFBB8E /* Rock-Texture-Surface.jpg */; };
 		045ED71E244D406C00EFBB8E /* rock.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 045ED703244D406C00EFBB8E /* rock.mtl */; };
 		045ED729244D47C700EFBB8E /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 045ED728244D47C700EFBB8E /* glad.c */; };
-		045ED72E244D4ACA00EFBB8E /* shader.vs in Resources */ = {isa = PBXBuildFile; fileRef = 045ED72B244D4ACA00EFBB8E /* shader.vs */; };
-		045ED72F244D4ACA00EFBB8E /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045ED72C244D4ACA00EFBB8E /* Shader.cpp */; };
-		045ED730244D4ACA00EFBB8E /* shader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 045ED72D244D4ACA00EFBB8E /* shader.frag */; };
-		045ED733244D4EB600EFBB8E /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045ED732244D4EB600EFBB8E /* Mesh.cpp */; };
 		045ED735244D50A900EFBB8E /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED734244D50A900EFBB8E /* GLUT.framework */; };
 		045ED737244D50B900EFBB8E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED736244D50B900EFBB8E /* IOKit.framework */; };
 		045ED739244D50C100EFBB8E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED738244D50C100EFBB8E /* Cocoa.framework */; };
 		045ED73B244D50CE00EFBB8E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045ED73A244D50CE00EFBB8E /* CoreVideo.framework */; };
+		045ED741244D536A00EFBB8E /* shader.vs in Resources */ = {isa = PBXBuildFile; fileRef = 045ED73E244D536A00EFBB8E /* shader.vs */; };
+		045ED743244D536A00EFBB8E /* shader.frag in Resources */ = {isa = PBXBuildFile; fileRef = 045ED740244D536A00EFBB8E /* shader.frag */; };
+		045ED744244D538F00EFBB8E /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045ED73F244D536A00EFBB8E /* Shader.cpp */; };
+		045ED746244D53BB00EFBB8E /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 045ED745244D53BB00EFBB8E /* Mesh.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -476,14 +476,14 @@
 		045ED724244D47C700EFBB8E /* khrplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
 		045ED726244D47C700EFBB8E /* glad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glad.h; sourceTree = "<group>"; };
 		045ED728244D47C700EFBB8E /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
-		045ED72B244D4ACA00EFBB8E /* shader.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vs; sourceTree = "<group>"; };
-		045ED72C244D4ACA00EFBB8E /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
-		045ED72D244D4ACA00EFBB8E /* shader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.frag; sourceTree = "<group>"; };
-		045ED732244D4EB600EFBB8E /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		045ED734244D50A900EFBB8E /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		045ED736244D50B900EFBB8E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		045ED738244D50C100EFBB8E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		045ED73A244D50CE00EFBB8E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		045ED73E244D536A00EFBB8E /* shader.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vs; sourceTree = "<group>"; };
+		045ED73F244D536A00EFBB8E /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		045ED740244D536A00EFBB8E /* shader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.frag; sourceTree = "<group>"; };
+		045ED745244D53BB00EFBB8E /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -525,8 +525,7 @@
 		045ED50F244D3E1E00EFBB8E /* OpenGLAssimp */ = {
 			isa = PBXGroup;
 			children = (
-				045ED731244D4EB600EFBB8E /* Mesh */,
-				045ED72A244D4ACA00EFBB8E /* Shader */,
+				045ED73D244D536A00EFBB8E /* Shader */,
 				045ED721244D47C700EFBB8E /* glad */,
 				045ED6E5244D406C00EFBB8E /* Models */,
 				045ED655244D3EAA00EFBB8E /* Camera */,
@@ -538,6 +537,7 @@
 				045ED513244D3E2000EFBB8E /* Assets.xcassets */,
 				045ED515244D3E2000EFBB8E /* MainMenu.xib */,
 				045ED518244D3E2000EFBB8E /* Info.plist */,
+				045ED745244D53BB00EFBB8E /* Mesh.cpp */,
 				045ED6E0244D3EC000EFBB8E /* main.cpp */,
 				045ED51B244D3E2000EFBB8E /* OpenGLAssimp.entitlements */,
 			);
@@ -1043,22 +1043,14 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		045ED72A244D4ACA00EFBB8E /* Shader */ = {
+		045ED73D244D536A00EFBB8E /* Shader */ = {
 			isa = PBXGroup;
 			children = (
-				045ED72B244D4ACA00EFBB8E /* shader.vs */,
-				045ED72C244D4ACA00EFBB8E /* Shader.cpp */,
-				045ED72D244D4ACA00EFBB8E /* shader.frag */,
+				045ED73E244D536A00EFBB8E /* shader.vs */,
+				045ED73F244D536A00EFBB8E /* Shader.cpp */,
+				045ED740244D536A00EFBB8E /* shader.frag */,
 			);
 			path = Shader;
-			sourceTree = "<group>";
-		};
-		045ED731244D4EB600EFBB8E /* Mesh */ = {
-			isa = PBXGroup;
-			children = (
-				045ED732244D4EB600EFBB8E /* Mesh.cpp */,
-			);
-			path = Mesh;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1149,7 +1141,7 @@
 				045ED6CB244D3EAA00EFBB8E /* scalar_relational.inl in Resources */,
 				045ED666244D3EAA00EFBB8E /* func_noise.inl in Resources */,
 				045ED67C244D3EAA00EFBB8E /* intrinsic_trigonometric.inl in Resources */,
-				045ED72E244D4ACA00EFBB8E /* shader.vs in Resources */,
+				045ED741244D536A00EFBB8E /* shader.vs in Resources */,
 				045ED71E244D406C00EFBB8E /* rock.mtl in Resources */,
 				045ED67F244D3EAA00EFBB8E /* type_vec2.inl in Resources */,
 				045ED6B4244D3EAA00EFBB8E /* matrix_interpolation.inl in Resources */,
@@ -1187,7 +1179,7 @@
 				045ED6CD244D3EAA00EFBB8E /* int_10_10_10_2.inl in Resources */,
 				045ED669244D3EAA00EFBB8E /* func_packing.inl in Resources */,
 				045ED687244D3EAA00EFBB8E /* type_mat3x2.inl in Resources */,
-				045ED730244D4ACA00EFBB8E /* shader.frag in Resources */,
+				045ED743244D536A00EFBB8E /* shader.frag in Resources */,
 				045ED694244D3EAA00EFBB8E /* random.inl in Resources */,
 				045ED707244D406C00EFBB8E /* arm_showroom_spec.png in Resources */,
 				045ED6A2244D3EAA00EFBB8E /* simd_mat4.inl in Resources */,
@@ -1271,11 +1263,11 @@
 				045ED6E1244D3EC000EFBB8E /* main.cpp in Sources */,
 				045ED729244D47C700EFBB8E /* glad.c in Sources */,
 				045ED6D9244D3EAA00EFBB8E /* Camera.cpp in Sources */,
-				045ED72F244D4ACA00EFBB8E /* Shader.cpp in Sources */,
+				045ED744244D538F00EFBB8E /* Shader.cpp in Sources */,
 				045ED6D7244D3EAA00EFBB8E /* SOIL.c in Sources */,
 				045ED678244D3EAA00EFBB8E /* dummy.cpp in Sources */,
 				045ED6D8244D3EAA00EFBB8E /* stb_image_aug.c in Sources */,
-				045ED733244D4EB600EFBB8E /* Mesh.cpp in Sources */,
+				045ED746244D53BB00EFBB8E /* Mesh.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

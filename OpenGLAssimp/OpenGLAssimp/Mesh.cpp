@@ -12,6 +12,7 @@
 #include "glad.h"
 #include "glm.hpp"
 #include "matrix_transform.hpp"
+#include "Shader/Shader.cpp"
 
 #include <stdio.h>
 #include <string>
@@ -61,43 +62,43 @@ public:
     }
 
     // 绘制网格
-//    void Draw(Shader shader)
-//    {
-//        // 绑定纹理
-//        unsigned int diffuseNr  = 1;
-//        unsigned int specularNr = 1;
-//        unsigned int normalNr   = 1;
-//        unsigned int heightNr   = 1;
-//        for(unsigned int i = 0; i < textures.size(); i++)
-//        {
-//            // 绑定前激活适当的纹理单元
-//            glActiveTexture(GL_TEXTURE0 + i);
-//            // 检索纹理编号（0～15）
-//            string number;
-//            string name = textures[i].type;
-//            if(name == "texture_diffuse")
-//                number = std::to_string(diffuseNr++);
-//            else if(name == "texture_specular")
-//                number = std::to_string(specularNr++); // transfer unsigned int to stream
-//            else if(name == "texture_normal")
-//                number = std::to_string(normalNr++); // transfer unsigned int to stream
-//             else if(name == "texture_height")
-//                number = std::to_string(heightNr++); // transfer unsigned int to stream
-//
-//            // 设置纹理
-//            glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
-//            // 绑定纹理id
-//            glBindTexture(GL_TEXTURE_2D, textures[i].id);
-//        }
-//
-//        // draw mesh
-//        glBindVertexArray(VAO);
-//        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-//        glBindVertexArray(0);
-//
-//        // 恢复默认纹理
-//        glActiveTexture(GL_TEXTURE0);
-//    }
+    void Draw(Shader shader)
+    {
+        // 绑定纹理
+        unsigned int diffuseNr  = 1;
+        unsigned int specularNr = 1;
+        unsigned int normalNr   = 1;
+        unsigned int heightNr   = 1;
+        for(unsigned int i = 0; i < textures.size(); i++)
+        {
+            // 绑定前激活适当的纹理单元
+            glActiveTexture(GL_TEXTURE0 + i);
+            // 检索纹理编号（0～15）
+            string number;
+            string name = textures[i].type;
+            if(name == "texture_diffuse")
+                number = std::to_string(diffuseNr++);
+            else if(name == "texture_specular")
+                number = std::to_string(specularNr++); // transfer unsigned int to stream
+            else if(name == "texture_normal")
+                number = std::to_string(normalNr++); // transfer unsigned int to stream
+             else if(name == "texture_height")
+                number = std::to_string(heightNr++); // transfer unsigned int to stream
+
+            // 设置纹理
+            glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
+            // 绑定纹理id
+            glBindTexture(GL_TEXTURE_2D, textures[i].id);
+        }
+
+        // draw mesh
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+
+        // 恢复默认纹理
+        glActiveTexture(GL_TEXTURE0);
+    }
 
 private:
     unsigned int VBO, EBO;
