@@ -10,7 +10,7 @@
 
 #include <vector>
 
-#include "glew.h"
+#include "glad.h"
 #include "glm.hpp"
 #include "matrix_transform.hpp"
 
